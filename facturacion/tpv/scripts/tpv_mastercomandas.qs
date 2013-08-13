@@ -1,3 +1,4 @@
+var form = this;
 /***************************************************************************
                  tpv_mastercomandas.qs  -  description
                              -------------------
@@ -43,19 +44,19 @@ class oficial extends interna {
         function abrirComanda_clicked() {
                 return this.ctx.oficial_abrirComanda_clicked();
         }
-        function abrirComanda(idComanda:String):Boolean {
+        function abrirComanda(idComanda:String) {
                 return this.ctx.oficial_abrirComanda(idComanda);
         }
-        function eliminarFactura(idFactura:Number):Boolean {
+        function eliminarFactura(idFactura:Number) {
                 return this.ctx.oficial_eliminarFactura(idFactura);
         }
         function imprimir_clicked(){
                 return this.ctx.oficial_imprimir_clicked();
         }
-        function imprimirTiqueComanda(codComanda:String):Boolean{
+        function imprimirTiqueComanda(codComanda:String){
                 return this.ctx.oficial_imprimirTiqueComanda(codComanda);
         }
-        function imprimirFactura_clicked():Boolean{
+        function imprimirFactura_clicked(){
                 return this.ctx.oficial_imprimirFactura_clicked();
         }
         function abrirCajon_clicked() {
@@ -73,7 +74,7 @@ class oficial extends interna {
         function filtrarVentas() {
                 return this.ctx.oficial_filtrarVentas();
         }
-        function filtroVentas():String {
+        function filtroVentas() {
                 return this.ctx.oficial_filtroVentas();
         }
         function imprimirTiquePOS(codComanda:String, impresora:String, qry:FLSqlQuery) {
@@ -83,11 +84,23 @@ class oficial extends interna {
 //// OFICIAL /////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////
 
+/** @class_declaration ivaIncluido */
+/////////////////////////////////////////////////////////////////
+//// IVA INCLUIDO ///////////////////////////////////////////////
+class ivaIncluido extends oficial /** %from: oficial */ {
+    function ivaIncluido( context ) { oficial ( context ); }
+	function imprimirTiquePOS(codComanda:String, impresora:String, qry:FLSqlQuery) {
+		return this.ctx.ivaIncluido_imprimirTiquePOS(codComanda, impresora, qry);
+	}
+}
+//// IVA INCLUIDO ///////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+
 /** @class_declaration head */
 /////////////////////////////////////////////////////////////////
 //// DESARROLLO /////////////////////////////////////////////////
-class head extends oficial {
-    function head( context ) { oficial ( context ); }
+class head extends ivaIncluido {
+    function head( context ) { ivaIncluido ( context ); }
 }
 //// DESARROLLO /////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////
@@ -97,7 +110,7 @@ class head extends oficial {
 //// INTERFACE  /////////////////////////////////////////////////
 class ifaceCtx extends head {
         function ifaceCtx( context ) { head( context ); }
-        function pub_imprimirTiqueComanda(codComanda:Stirng):Boolean{
+        function pub_imprimirTiqueComanda(codComanda:Stirng){
                 return this.imprimirTiqueComanda(codComanda);
         }
         function pub_abrirCajon( impresora:String, escAbrir:String ) {
@@ -107,8 +120,6 @@ class ifaceCtx extends head {
                 return this.imprimirQuick( codComanda, impresora );
         }
 }
-
-
 //// INTERFACE  /////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////
 
@@ -141,7 +152,6 @@ function interna_init()
 //// INTERNA /////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////
 
-
 /** @class_definition oficial */
 //////////////////////////////////////////////////////////////////
 //// OFICIAL /////////////////////////////////////////////////////
@@ -150,12 +160,12 @@ Abre una comanda
 No se podrá abir una comanda si su arqueo está cerrado
 @return Boolean, devuelve true si todo se ha ejecutado correctamente y false si hay algún error
 */
-function oficial_abrirComanda_clicked():Boolean
+function oficial_abrirComanda_clicked()
 {
-        var util:FLUtil = new FLUtil();
-        var cursor:FLSqlCursor = this.cursor();
-        var idFactura:Number = cursor.valueBuffer("idfactura");
-        var idComanda:Number = cursor.valueBuffer("idtpv_comanda");
+        var util= new FLUtil();
+        var cursor= this.cursor();
+        var idFactura= cursor.valueBuffer("idfactura");
+        var idComanda= cursor.valueBuffer("idtpv_comanda");
         if (!idComanda)
                 return false;
 
@@ -171,7 +181,7 @@ function oficial_abrirComanda_clicked():Boolean
         }
         */
 
-        var res:Number = MessageBox.warning(util.translate("scripts", "Va a abrir la venta seleccionada"), MessageBox.Ok, MessageBox.Cancel);
+        var res= MessageBox.warning(util.translate("scripts", "Va a abrir la venta seleccionada"), MessageBox.Ok, MessageBox.Cancel);
         if (res != MessageBox.Ok)
                 return true;
 
@@ -198,10 +208,10 @@ function oficial_abrirComanda_clicked():Boolean
 @param        idComanda: identificador de la comanda
 @return        true si la comanda se abre correctamente, false en caso contrario
 \end */
-function oficial_abrirComanda(idComanda:String):Boolean
+function oficial_abrirComanda(idComanda:String)
 {
-        var util:FLUtil = new FLUtil();
-        var curComanda:FLSqlCursor = new FLSqlCursor("tpv_comandas");
+        var util= new FLUtil();
+        var curComanda= new FLSqlCursor("tpv_comandas");
         curComanda.select("idtpv_comanda = " + idComanda);
         if (!curComanda.first())
                 return false;
@@ -224,17 +234,17 @@ Elimina los el pago, recibo y factura que corresponden a la comanda
 @param idFactura identificador de la factura a borrar
 @return Boolean, devuelve true si todo se ha ejecutado correctamente y fasle si hay algún error
 */
-function oficial_eliminarFactura(idFactura:Number):Boolean
+function oficial_eliminarFactura(idFactura:Number)
 {
-        var util:FLUtil = new FLUtil();
-        var curFactura:FLSqlCursor = new FLSqlCursor("facturascli");
+        var util= new FLUtil();
+        var curFactura= new FLSqlCursor("facturascli");
         curFactura.select("idfactura = " + idFactura);
         if(!curFactura.first())
                 return false;
         var codRecibo = curFactura.valueBuffer("codigo") + "-01";
         if(util.sqlSelect("reciboscli","estado","codigo = '" + codRecibo + "'") == "Pagado"){
-                var idrecibo:Number = util.sqlSelect("reciboscli","idrecibo","codigo = '" + codRecibo + "'");
-                var curPagos:FLSqlCursor = new FLSqlCursor("pagosdevolcli");
+                var idrecibo= util.sqlSelect("reciboscli","idrecibo","codigo = '" + codRecibo + "'");
+                var curPagos= new FLSqlCursor("pagosdevolcli");
                 curPagos.select("idrecibo = " + idrecibo);
                 if(!curPagos.first())
                         return false;
@@ -242,7 +252,7 @@ function oficial_eliminarFactura(idFactura:Number):Boolean
                 curPagos.refreshBuffer();
                 if(!curPagos.commitBuffer())
                         return false;
-                var curRecibos:FLSqlCursor = new FLSqlCursor("reciboscli");
+                var curRecibos= new FLSqlCursor("reciboscli");
                 curRecibos.select("idrecibo = " + idrecibo);
                 if(!curRecibos.first())
                         return false;
@@ -265,8 +275,8 @@ Abre una transacción y llama a la función ImprimirTiqueComanda
 */
 function oficial_imprimir_clicked()
 {
-        var cursor:FLSqlCursor = this.cursor();
-        var codComanda:String = cursor.valueBuffer("codigo");
+        var cursor= this.cursor();
+        var codComanda= cursor.valueBuffer("codigo");
         if (!codComanda)
                 return false;
 
@@ -282,12 +292,12 @@ Si el módulo de informes no está cargado muestra un mensaje de aviso y si lo est
 @param codComanda codigo de la comanda a imprimir
 @return true si se imprime correctamente y false si ha algún error
 */
-function oficial_imprimirTiqueComanda(codComanda:String):Boolean
+function oficial_imprimirTiqueComanda(codComanda:String)
 {
         if (sys.isLoadedModule("flfactinfo")) {
                 if (!this.cursor().isValid())
                         return;
-                var curImprimir:FLSqlCursor = new FLSqlCursor("tpv_i_comandas");
+                var curImprimir= new FLSqlCursor("tpv_i_comandas");
                 curImprimir.setModeAccess(curImprimir.Insert);
                 curImprimir.refreshBuffer();
                 curImprimir.setValueBuffer("descripcion", "temp");
@@ -308,23 +318,23 @@ function oficial_imprimirQuick_clicked()
         if (!this.cursor().isValid())
                 return;
 
-        var util:FLUtil = new FLUtil();
-        var pv:String = util.readSettingEntry( "scripts/fltpv_ppal/codTerminal" );
+        var util= new FLUtil();
+        var pv= util.readSettingEntry( "scripts/fltpv_ppal/codTerminal" );
 
         if ( !pv )
                         pv = util.sqlSelect( "tpv_puntosventa", "codtpv_puntoventa", "1=1") ;
 
-        var codComanda:String = this.cursor().valueBuffer("idtpv_comanda");
+        var codComanda= this.cursor().valueBuffer("idtpv_comanda");
 
-        var qryTicket:FLSqlQuery = new FLSqlQuery("tpv_i_comandas");
+        var qryTicket= new FLSqlQuery("tpv_i_comandas");
         qryTicket.setWhere("tpv_comandas.idtpv_comanda = '" + codComanda + "'");
         if (!qryTicket.exec())
                 return false;
 
-        var impresora:String = util.sqlSelect( "tpv_puntosventa", "impresora","codtpv_puntoventa = '" + pv + "'") ;
+        var impresora= util.sqlSelect( "tpv_puntosventa", "impresora","codtpv_puntoventa = '" + pv + "'") ;
         flfact_tpv.iface.establecerImpresora(impresora);
 
-        var primerRegistro:Boolean = true;
+        var primerRegistro= true;
         while (qryTicket.next()) {
                 if (primerRegistro) {
                         flfact_tpv.iface.imprimirDatos(qryTicket.value("empresa.nombre"));
@@ -360,18 +370,16 @@ function oficial_imprimirQuick_clicked()
         flfact_tpv.iface.i();
         flfact_tpv.iface.flushImpresora();
         */
-
-
         if (!this.cursor().isValid())
                 return;
 
-        var util:FLUtil = new FLUtil();
-        var pv:String = util.readSettingEntry( "scripts/fltpv_ppal/codTerminal" );
+        var util= new FLUtil();
+        var pv= util.readSettingEntry( "scripts/fltpv_ppal/codTerminal" );
 
         if ( !pv )
                         pv = util.sqlSelect( "tpv_puntosventa", "codtpv_puntoventa", "1=1") ;
 
-        var impresora:String = util.sqlSelect( "tpv_puntosventa", "impresora","codtpv_puntoventa = '" + pv + "'") ;
+        var impresora= util.sqlSelect( "tpv_puntosventa", "impresora","codtpv_puntoventa = '" + pv + "'") ;
 
         this.iface.imprimirQuick( this.cursor().valueBuffer( "codigo" ) , impresora );
 
@@ -379,9 +387,9 @@ function oficial_imprimirQuick_clicked()
 
 function oficial_imprimirQuick( codComanda:String, impresora:String )
 {
-        var util:FLUtil = new FLUtil();
-        var q:FLSqlQuery = new FLSqlQuery( "tpv_i_comandas" );
-        var codPuntoVenta:String = util.readSettingEntry("scripts/fltpv_ppal/codTerminal");
+        var util= new FLUtil();
+        var q= new FLSqlQuery( "tpv_i_comandas" );
+        var codPuntoVenta= util.readSettingEntry("scripts/fltpv_ppal/codTerminal");
 
         q.setWhere( "codigo = '" + codComanda + "'" );
         if (q.exec() == false) {
@@ -394,19 +402,19 @@ function oficial_imprimirQuick( codComanda:String, impresora:String )
                 }
         }
 
-        var tipoImpresora:String = util.sqlSelect("tpv_puntosventa", "tipoimpresora", "codtpv_puntoventa = '" + codPuntoVenta + "'");
+        var tipoImpresora= util.sqlSelect("tpv_puntosventa", "tipoimpresora", "codtpv_puntoventa = '" + codPuntoVenta + "'");
         if (tipoImpresora == "ESC-POS") {
                 this.iface.imprimirTiquePOS(codComanda, impresora, q);
         } else {
-                var pixel:Number = util.sqlSelect("tpv_puntosventa", "pixel", "codtpv_puntoventa = '" + codPuntoVenta + "'");
+                var pixel= util.sqlSelect("tpv_puntosventa", "pixel", "codtpv_puntoventa = '" + codPuntoVenta + "'");
                 if (!pixel || isNaN(pixel)) {
                         pixel = 780;
                 }
-                var resolucion:Number = util.sqlSelect("tpv_puntosventa", "resolucion", "codtpv_puntoventa = '" + codPuntoVenta + "'");
+                var resolucion= util.sqlSelect("tpv_puntosventa", "resolucion", "codtpv_puntoventa = '" + codPuntoVenta + "'");
                 if (!resolucion || isNaN(resolucion)) {
                         resolucion = 300;
                 }
-                var rptViewer:FLReportViewer = new FLReportViewer();
+                var rptViewer= new FLReportViewer();
                 rptViewer.setPixel(pixel);
                 rptViewer.setResolution(resolucion);
                 rptViewer.setReportTemplate( "tpv_i_comandas" );
@@ -419,10 +427,10 @@ function oficial_imprimirQuick( codComanda:String, impresora:String )
 
 function oficial_imprimirTiquePOS(codComanda:String, impresora:String, qryTicket:FLSqlQuery)
 {
-        var util:FLUtil = new FLUtil;
+        var util= new FLUtil;
         flfact_tpv.iface.establecerImpresora(impresora);
 
-        var primerRegistro:Boolean = true;
+        var primerRegistro= true;
         var total:String;
         var neto:String;
         var totalIva:String;
@@ -453,17 +461,19 @@ function oficial_imprimirTiquePOS(codComanda:String, impresora:String, qryTicket
                         flfact_tpv.iface.impNuevaLinea();
                         flfact_tpv.iface.imprimirDatos("N.I.F.  ");
                         flfact_tpv.iface.imprimirDatos(qryTicket.value("empresa.cifnif"));
-                        flfact_tpv.iface.impNuevaLinea(2);
-                        flfact_tpv.iface.imprimirDatos("Nº Tiquet: " + qryTicket.value("tpv_comandas.codigo"));
+                        flfact_tpv.iface.impNuevaLinea();
+                        flfact_tpv.iface.impNuevaLinea();
+                        flfact_tpv.iface.imprimirDatos("Fra. Simplificada: " + qryTicket.value("tpv_comandas.codigo"));
                         flfact_tpv.iface.impNuevaLinea();
                         flfact_tpv.iface.imprimirDatos("Fecha: " + util.dateAMDtoDMA(qryTicket.value("tpv_comandas.fecha")));
 
-                        var hora:String = qryTicket.value("tpv_comandas.hora").toString();
+                        var hora= qryTicket.value("tpv_comandas.hora").toString();
                         hora = hora.right(8);
                         hora = hora.left(5);
                         flfact_tpv.iface.imprimirDatos("   Hora: " + hora);
-                        flfact_tpv.iface.impNuevaLinea(2);
-                        flfact_tpv.iface.imprimirDatos("ARTICULO", 20);
+                        flfact_tpv.iface.impNuevaLinea();
+                        flfact_tpv.iface.impNuevaLinea();
+                        flfact_tpv.iface.imprimirDatos("ARTICULO", 25);
                         flfact_tpv.iface.imprimirDatos("CANTIDAD", 10, 2);
                         flfact_tpv.iface.imprimirDatos("IMPORTE", 10, 2);
                         flfact_tpv.iface.impNuevaLinea();
@@ -505,17 +515,23 @@ function oficial_imprimirTiquePOS(codComanda:String, impresora:String, qryTicket
         flfact_tpv.iface.impAlinearH(0);
         flfact_tpv.iface.impNuevaLinea(2);
         flfact_tpv.iface.impSubrayar(true);
-        flfact_tpv.iface.imprimirDatos("Le atendió:");
+        flfact_tpv.iface.imprimirDatos("Le atendio:");
         flfact_tpv.iface.impSubrayar(false);
         flfact_tpv.iface.imprimirDatos("   " + agente);
         flfact_tpv.iface.impNuevaLinea();
-
-        flfact_tpv.iface.impNuevaLinea(9);
+        flfact_tpv.iface.impNuevaLinea();
+        flfact_tpv.iface.impNuevaLinea();
+        flfact_tpv.iface.impNuevaLinea();
+        flfact_tpv.iface.impNuevaLinea();
+        flfact_tpv.iface.impNuevaLinea();
+        flfact_tpv.iface.impNuevaLinea();
+        flfact_tpv.iface.impNuevaLinea();
+        flfact_tpv.iface.impNuevaLinea();
         flfact_tpv.iface.impCortar();
         flfact_tpv.iface.flushImpresora();
 
 /// Eliminado porque parece que corta dos veces el papel en ciertas instalaciones
-//         var printer:FLPosPrinter = new FLPosPrinter();
+//         var printer= new FLPosPrinter();
 //         printer.setPrinterName( impresora );
 //         printer.send( "ESC:1B,64,05,1B,69" );
 //         printer.flush();
@@ -526,14 +542,14 @@ Abre el cajón del punto de venta actual
 */
 function oficial_abrirCajon_clicked()
 {
-        var util:FLUtil = new FLUtil();
-        var pv:String = util.readSettingEntry( "scripts/fltpv_ppal/codTerminal" );
+        var util= new FLUtil();
+        var pv= util.readSettingEntry( "scripts/fltpv_ppal/codTerminal" );
 
         if ( !pv )
                         pv = util.sqlSelect( "tpv_puntosventa", "codtpv_puntoventa", "1=1") ;
 
-        var impresora:String = util.sqlSelect( "tpv_puntosventa", "impresora", "codtpv_puntoventa = '" + pv + "'") ;
-        var escAbrir:String = util.sqlSelect( "tpv_puntosventa", "abrircajon", "codtpv_puntoventa = '" + pv + "'") ;
+        var impresora= util.sqlSelect( "tpv_puntosventa", "impresora", "codtpv_puntoventa = '" + pv + "'") ;
+        var escAbrir= util.sqlSelect( "tpv_puntosventa", "abrircajon", "codtpv_puntoventa = '" + pv + "'") ;
 
         this.iface.abrirCajon( impresora, escAbrir);
 }
@@ -544,7 +560,7 @@ Abre el cajón portamonedas conectado a una impresora
 */
 function oficial_abrirCajon( impresora:String, escAbrir:String )
 {
-        var printer:FLPosPrinter = new FLPosPrinter();
+        var printer= new FLPosPrinter();
         printer.setPrinterName( impresora );
 
         if (!escAbrir) {
@@ -560,22 +576,22 @@ Imprime la factura correspondiente a la venta seleccionada
 */
 function oficial_imprimirFactura_clicked()
 {
-        var util:FLUtil = new FLUtil;
-        var cursor:FLSqlCursor = this.cursor();
+        var util= new FLUtil;
+        var cursor= this.cursor();
 
-        var codComanda:String = cursor.valueBuffer("codigo");
+        var codComanda= cursor.valueBuffer("codigo");
         if (!codComanda) {
                 return;
         }
 
-        var idFactura:String = cursor.valueBuffer("idfactura");
+        var idFactura= cursor.valueBuffer("idfactura");
         if (!idFactura) {
-                var res:Number = MessageBox.warning(util.translate("scripts", "La venta seleccionada todavía no tiene una factura asociada. ¿Desea crearla ahora?"), MessageBox.Yes, MessageBox.No);
+                var res= MessageBox.warning(util.translate("scripts", "La venta seleccionada todavía no tiene una factura asociada. ¿Desea crearla ahora?"), MessageBox.Yes, MessageBox.No);
                 if (res != MessageBox.Yes) {
                         return;
                 }
 
-                var curComanda:FLSqlCursor = new FLSqlCursor("tpv_comandas");
+                var curComanda= new FLSqlCursor("tpv_comandas");
                 curComanda.transaction(false);
                 try {
                         idFactura = flfact_tpv.iface.pub_crearFactura(cursor);
@@ -604,7 +620,7 @@ function oficial_imprimirFactura_clicked()
                 }
         }
 
-        var codFactura:String = util.sqlSelect("facturascli", "codigo", "idfactura = " + idFactura);
+        var codFactura= util.sqlSelect("facturascli", "codigo", "idfactura = " + idFactura);
         if (codFactura) {
                 formfacturascli.iface.pub_imprimir(codFactura);
         }
@@ -614,8 +630,8 @@ function oficial_imprimirFactura_clicked()
 \end */
 function oficial_filtrarVentas()
 {
-        var cursor:FLSqlCursor = this.cursor();
-        var filtro:String = this.iface.filtroVentas();
+        var cursor= this.cursor();
+        var filtro= this.iface.filtroVentas();
         if (!filtro && filtro != "")
                 return;
 
@@ -623,17 +639,17 @@ function oficial_filtrarVentas()
         this.iface.tdbRecords.refresh();
 }
 
-function oficial_filtroVentas():String
+function oficial_filtroVentas()
 {
-        var filtro:String = "";
-        var util:FLUtil = new FLUtil;
+        var filtro= "";
+        var util= new FLUtil;
         if (this.iface.ckbSoloHoy.checked) {
-                var hoy:Date = new Date;
+                var hoy= new Date;
                 filtro = "fecha = '" + hoy.toString().left(10) + "'";
         }
 
         if (this.iface.ckbSoloPV.checked) {
-                var codTerminal:String = util.readSettingEntry("scripts/fltpv_ppal/codTerminal");
+                var codTerminal= util.readSettingEntry("scripts/fltpv_ppal/codTerminal");
                 if (codTerminal) {
                         if (filtro != "")
                                 filtro += " AND ";
@@ -644,6 +660,117 @@ function oficial_filtroVentas():String
         return filtro;
 }
 //// OFICIAL /////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+
+/** @class_definition ivaIncluido */
+/////////////////////////////////////////////////////////////////
+//// IVA INCLUIDO ///////////////////////////////////////////////
+function ivaIncluido_imprimirTiquePOS(codComanda:String, impresora:String, qryTicket:FLSqlQuery)
+{
+	var util= new FLUtil;
+	flfact_tpv.iface.establecerImpresora(impresora);
+
+	var primerRegistro= true;
+	var total:String;
+	var agente:String;
+	var totalLinea:Number;
+	var pvpUnitarioIva:Number;
+	var descripcion:String;
+	var codColor:String;
+	var formaPago:String;
+
+	if (!qryTicket.exec()) {
+		return false;
+	}
+	while (qryTicket.next()) {
+		if (primerRegistro) {
+			flfact_tpv.iface.impResaltar(true);
+			flfact_tpv.iface.impSubrayar(true);
+			flfact_tpv.iface.imprimirDatos(qryTicket.value("empresa.nombre"));
+			flfact_tpv.iface.impResaltar(false);
+			flfact_tpv.iface.impSubrayar(false);
+			flfact_tpv.iface.impNuevaLinea();
+			flfact_tpv.iface.imprimirDatos(qryTicket.value("empresa.direccion"));
+			flfact_tpv.iface.impNuevaLinea();
+			flfact_tpv.iface.imprimirDatos(qryTicket.value("empresa.ciudad"));
+			flfact_tpv.iface.impNuevaLinea();
+			flfact_tpv.iface.imprimirDatos("Telef.  ");
+			flfact_tpv.iface.imprimirDatos(qryTicket.value("empresa.telefono"));
+			flfact_tpv.iface.impNuevaLinea();
+			flfact_tpv.iface.imprimirDatos("N.I.F.  ");
+			flfact_tpv.iface.imprimirDatos(qryTicket.value("empresa.cifnif"));
+			flfact_tpv.iface.impNuevaLinea();
+			flfact_tpv.iface.impNuevaLinea();
+			flfact_tpv.iface.imprimirDatos("Fra. Simplificada: " + qryTicket.value("tpv_comandas.codigo"));
+			flfact_tpv.iface.impNuevaLinea();
+			flfact_tpv.iface.imprimirDatos("Fecha: " + util.dateAMDtoDMA(qryTicket.value("tpv_comandas.fecha")));
+			var hora= qryTicket.value("tpv_comandas.hora").toString();
+			hora = hora.right(8);
+			hora = hora.left(5);
+			flfact_tpv.iface.imprimirDatos("   Hora: " + hora);
+			flfact_tpv.iface.impNuevaLinea();
+			flfact_tpv.iface.impNuevaLinea();
+			flfact_tpv.iface.imprimirDatos("DESCRIPCION", 25);
+			flfact_tpv.iface.imprimirDatos("CANTIDAD", 10, 2);
+			flfact_tpv.iface.imprimirDatos("IMPORTE", 10, 2);
+			flfact_tpv.iface.impNuevaLinea();
+
+			total = util.roundFieldValue(qryTicket.value("tpv_comandas.total"), "tpv_comandas", "total");
+			agente = qryTicket.value("tpv_agentes.descripcion");
+		}
+
+		primerRegistro = false;
+
+		cantidad = qryTicket.value("tpv_lineascomanda.cantidad");
+		pvpUnitarioIva = qryTicket.value("tpv_lineascomanda.pvpunitarioiva");
+		totalLinea = util.roundFieldValue(pvpUnitarioIva * cantidad, "tpv_comandas", "total");
+
+		descripcion = qryTicket.value("tpv_lineascomanda.descripcion");
+
+		flfact_tpv.iface.imprimirDatos(descripcion, 25);
+		flfact_tpv.iface.imprimirDatos(cantidad, 10, 2);
+		flfact_tpv.iface.imprimirDatos(totalLinea, 10, 2);
+		flfact_tpv.iface.impNuevaLinea();
+	}
+
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.imprimirDatos("Total Ticket.", 30);
+	flfact_tpv.iface.imprimirDatos(total, 10,2);
+
+	flfact_tpv.iface.impAlinearH(0);
+
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.imprimirDatos("*** 21% I.V.A. INCLUIDO ***");
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.imprimirDatos("GRACIAS POR SU VISITA");
+	flfact_tpv.iface.impAlinearH(0);
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.impSubrayar(true);
+	flfact_tpv.iface.imprimirDatos("Le atendio:");
+	flfact_tpv.iface.impSubrayar(false);
+	flfact_tpv.iface.imprimirDatos("   " + agente);
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.impNuevaLinea();
+	
+	flfact_tpv.iface.imprimirDatos(" ");
+	flfact_tpv.iface.impCortar();
+	flfact_tpv.iface.flushImpresora();
+
+	var printer= new FLPosPrinter();
+	printer.setPrinterName( impresora );
+	printer.send( "ESC:1B,64,05,1B,69" );
+	printer.flush();
+}
+//// IVA INCLUIDO ///////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////
 
 /** @class_definition head */
