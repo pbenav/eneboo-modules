@@ -1221,7 +1221,14 @@ function oficial_establecerImpresora(impresora:String)
         this.iface.printer.setPrinterName( impresora );
         this.iface.printerXPos = 1;
         this.iface.printerYPos = 1;
-        this.iface.printerESC = "ESC:1B,40,1B,74,00,1B,21,04,";
+        this.iface.printerESC = "ESC:1B,40,1B,74,00,1B,21,04";
++        /** PBO Original this.iface.printerESC = "ESC:1B,74,19,";
++	 * Para set de caracteres IBM: 1B,74,01 ; 1B,37 ->SET#1; 1B,36 -> SET#2
++	 * Para set internacional 1B,52,11 -> Spain;
++	 * Para condensed printing 1B,0F; Cancela con 12;
++	 * Master print mode: 1B,21,04 -> Condensed printing
++	 * Reset printer: 1B,40
++	 **/
         this.iface.impAlinearH(0);
         this.iface.impResaltar(false);
 }
