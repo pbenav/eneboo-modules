@@ -721,11 +721,11 @@ function ivaIncluido_imprimirTiquePOS(codComanda:String, impresora:String, qryTi
 
 		primerRegistro = false;
 
+		descripcion = qryTicket.value("tpv_lineascomanda.descripcion");		
 		cantidad = qryTicket.value("tpv_lineascomanda.cantidad");
 		pvpUnitarioIva = qryTicket.value("tpv_lineascomanda.pvpunitarioiva");
 		totalLinea = util.roundFieldValue(pvpUnitarioIva * cantidad, "tpv_comandas", "total");
-
-		descripcion = qryTicket.value("tpv_lineascomanda.descripcion");
+		totaliva = util.roundFieldValue(qryTicket.value("tpv_comandas.totaliva"), "tpv_comandas", "totaliva");
 
 		flfact_tpv.iface.imprimirDatos(descripcion, 25);
 		flfact_tpv.iface.imprimirDatos(cantidad, 10, 2);
@@ -733,26 +733,33 @@ function ivaIncluido_imprimirTiquePOS(codComanda:String, impresora:String, qryTi
 		flfact_tpv.iface.impNuevaLinea();
 	}
 
+	
 	flfact_tpv.iface.impNuevaLinea();
-	flfact_tpv.iface.imprimirDatos("Total Ticket.", 30);
+	flfact_tpv.iface.imprimirDatos("Total factura.", 30);
 	flfact_tpv.iface.imprimirDatos(total, 10,2);
-
-	flfact_tpv.iface.impAlinearH(0);
+	flfact_tpv.iface.imprimirDatos("e.", 3);	
 
 	flfact_tpv.iface.impNuevaLinea();
 	flfact_tpv.iface.imprimirDatos("*** 21% I.V.A. INCLUIDO ***");
+
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.imprimirDatos("Ud. ha pagado", 14);
+	flfact_tpv.iface.imprimirDatos(totaliva, 6,2);
+	flfact_tpv.iface.imprimirDatos("e por el 21% de IVA", 18);
 	flfact_tpv.iface.impNuevaLinea();
 	flfact_tpv.iface.imprimirDatos("GRACIAS POR SU VISITA");
-	flfact_tpv.iface.impAlinearH(0);
+
 	flfact_tpv.iface.impNuevaLinea();
 	flfact_tpv.iface.impNuevaLinea();
 	flfact_tpv.iface.impSubrayar(true);
 	flfact_tpv.iface.imprimirDatos("Le atendio:");
 	flfact_tpv.iface.impSubrayar(false);
 	flfact_tpv.iface.imprimirDatos("   " + agente);
-	flfact_tpv.iface.impNuevaLinea();
-	flfact_tpv.iface.impNuevaLinea();
-	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.impNuevaLinea();	
+	flfact_tpv.iface.imprimirDatos(":: SIENTE :: Deporte, Turismo y Tecnología", 45);
+	flfact_tpv.iface.imprimirDatos(":: Bicicletas : Reparamos tu bici o tu ciclomotor", 45);	
+	flfact_tpv.iface.imprimirDatos(":: Telefonia :: Tienda Vodafone y Yoigo", 45);
+	flfact_tpv.iface.imprimirDatos(":: Ordenadores :: Reparamos tu equipo informático", 45);	
 	flfact_tpv.iface.impNuevaLinea();
 	flfact_tpv.iface.impNuevaLinea();
 	flfact_tpv.iface.impNuevaLinea();
@@ -767,7 +774,7 @@ function ivaIncluido_imprimirTiquePOS(codComanda:String, impresora:String, qryTi
 
 	var printer= new FLPosPrinter();
 	printer.setPrinterName( impresora );
-	printer.send( "ESC:1B,64,05,1B,69" );
+	printer.send( "ESC:1B,40," );
 	printer.flush();
 }
 //// IVA INCLUIDO ///////////////////////////////////////////////
