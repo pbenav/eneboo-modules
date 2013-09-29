@@ -157,8 +157,8 @@ function interna_init()
 //// OFICIAL /////////////////////////////////////////////////////
 /** \D
 Abre una comanda
-No se podrá abir una comanda si su arqueo está cerrado
-@return Boolean, devuelve true si todo se ha ejecutado correctamente y false si hay algún error
+No se podrï¿½ abir una comanda si su arqueo estï¿½ cerrado
+@return Boolean, devuelve true si todo se ha ejecutado correctamente y false si hay algï¿½n error
 */
 function oficial_abrirComanda_clicked()
 {
@@ -170,7 +170,7 @@ function oficial_abrirComanda_clicked()
                 return false;
 
         if (cursor.valueBuffer("editable") == true) {
-                MessageBox.warning(util.translate("scripts", "La venta ya está abierta"), MessageBox.Ok, MessageBox.NoButton, MessageBox.NoButton);
+                MessageBox.warning(util.translate("scripts", "La venta ya estï¿½ abierta"), MessageBox.Ok, MessageBox.NoButton, MessageBox.NoButton);
                 return true;
         }
 
@@ -232,7 +232,7 @@ function oficial_abrirComanda(idComanda:String)
 /** \D
 Elimina los el pago, recibo y factura que corresponden a la comanda
 @param idFactura identificador de la factura a borrar
-@return Boolean, devuelve true si todo se ha ejecutado correctamente y fasle si hay algún error
+@return Boolean, devuelve true si todo se ha ejecutado correctamente y fasle si hay algï¿½n error
 */
 function oficial_eliminarFactura(idFactura:Number)
 {
@@ -271,7 +271,7 @@ function oficial_eliminarFactura(idFactura:Number)
 }
 
 /** \D
-Abre una transacción y llama a la función ImprimirTiqueComanda
+Abre una transacciï¿½n y llama a la funciï¿½n ImprimirTiqueComanda
 */
 function oficial_imprimir_clicked()
 {
@@ -288,9 +288,9 @@ function oficial_imprimir_clicked()
 }
 
 /** \D
-Si el módulo de informes no está cargado muestra un mensaje de aviso y si lo está lanza el informe correspondiente
+Si el mï¿½dulo de informes no estï¿½ cargado muestra un mensaje de aviso y si lo estï¿½ lanza el informe correspondiente
 @param codComanda codigo de la comanda a imprimir
-@return true si se imprime correctamente y false si ha algún error
+@return true si se imprime correctamente y false si ha algï¿½n error
 */
 function oficial_imprimirTiqueComanda(codComanda:String)
 {
@@ -356,8 +356,8 @@ function oficial_imprimirQuick_clicked()
                         flfact_tpv.iface.impSubrayar(true);
                         //flfact_tpv.iface.imprimirDatos("ESC:1B,52,07");
                         flfact_tpv.iface.imprimirDatos("ESC:1B,74,19");
-                        flfact_tpv.iface.imprimirDatos("Camión", 20);
-                        flfact_tpv.iface.imprimirDatos("Ínigo, Pléyade, Cáscara");
+                        flfact_tpv.iface.imprimirDatos("Camiï¿½n", 20);
+                        flfact_tpv.iface.imprimirDatos("ï¿½nigo, Plï¿½yade, Cï¿½scara");
                         flfact_tpv.iface.impAlinearH(2);
                         flfact_tpv.iface.imprimirDatos("PVP");
                         flfact_tpv.iface.impSubrayar(false);
@@ -393,11 +393,11 @@ function oficial_imprimirQuick( codComanda:String, impresora:String )
 
         q.setWhere( "codigo = '" + codComanda + "'" );
         if (q.exec() == false) {
-                MessageBox.critical(util.translate("scripts", "Falló la consulta"), MessageBox.Ok, MessageBox.NoButton);
+                MessageBox.critical(util.translate("scripts", "Fallï¿½ la consulta"), MessageBox.Ok, MessageBox.NoButton);
                 return;
         } else {
                 if (q.first() == false) {
-                        MessageBox.warning(util.translate("scripts", "No hay registros que cumplan los criterios de búsqueda establecidos"), MessageBox.Ok, MessageBox.NoButton);
+                        MessageBox.warning(util.translate("scripts", "No hay registros que cumplan los criterios de bï¿½squeda establecidos"), MessageBox.Ok, MessageBox.NoButton);
                         return;
                 }
         }
@@ -538,7 +538,7 @@ function oficial_imprimirTiquePOS(codComanda:String, impresora:String, qryTicket
 }
 
 /** \D
-Abre el cajón del punto de venta actual
+Abre el cajï¿½n del punto de venta actual
 */
 function oficial_abrirCajon_clicked()
 {
@@ -555,8 +555,8 @@ function oficial_abrirCajon_clicked()
 }
 
 /** \D
-Abre el cajón portamonedas conectado a una impresora
-@impresora Nombre de la impresora LPR donde está conectado el cajón
+Abre el cajï¿½n portamonedas conectado a una impresora
+@impresora Nombre de la impresora LPR donde estï¿½ conectado el cajï¿½n
 */
 function oficial_abrirCajon( impresora:String, escAbrir:String )
 {
@@ -586,7 +586,7 @@ function oficial_imprimirFactura_clicked()
 
         var idFactura= cursor.valueBuffer("idfactura");
         if (!idFactura) {
-                var res= MessageBox.warning(util.translate("scripts", "La venta seleccionada todavía no tiene una factura asociada. ¿Desea crearla ahora?"), MessageBox.Yes, MessageBox.No);
+                var res= MessageBox.warning(util.translate("scripts", "La venta seleccionada todavï¿½a no tiene una factura asociada. ï¿½Desea crearla ahora?"), MessageBox.Yes, MessageBox.No);
                 if (res != MessageBox.Yes) {
                         return;
                 }
@@ -596,10 +596,10 @@ function oficial_imprimirFactura_clicked()
                 try {
                         idFactura = flfact_tpv.iface.pub_crearFactura(cursor);
                         if (!idFactura) {
-                                throw util.translate("scripts", "La función crearFactura ha fallado");
+                                throw util.translate("scripts", "La funciï¿½n crearFactura ha fallado");
                         }
 
-                        /// Evita que se llame a sincronizarConFacturación otra vez
+                        /// Evita que se llame a sincronizarConFacturaciï¿½n otra vez
                         curComanda.setActivatedCommitActions(false);
 
                         curComanda.select("codigo = '" + codComanda + "'");
@@ -626,7 +626,7 @@ function oficial_imprimirFactura_clicked()
         }
 }
 
-/** \D Activa o desactiva el filtro que muestra únicamente las últimas ventas o las del puesto por defecto. El filtro mejora el rendimiento
+/** \D Activa o desactiva el filtro que muestra ï¿½nicamente las ï¿½ltimas ventas o las del puesto por defecto. El filtro mejora el rendimiento
 \end */
 function oficial_filtrarVentas()
 {
@@ -756,10 +756,10 @@ function ivaIncluido_imprimirTiquePOS(codComanda:String, impresora:String, qryTi
 	flfact_tpv.iface.impSubrayar(false);
 	flfact_tpv.iface.imprimirDatos("   " + agente);
 	flfact_tpv.iface.impNuevaLinea();	
-	flfact_tpv.iface.imprimirDatos(":: SIENTE :: Deporte, Turismo y Tecnología", 45);
+	flfact_tpv.iface.imprimirDatos(":: SIENTE :: Deporte, Turismo y Tecnologï¿½a", 45);
 	flfact_tpv.iface.imprimirDatos(":: Bicicletas : Reparamos tu bici o tu ciclomotor", 45);	
 	flfact_tpv.iface.imprimirDatos(":: Telefonia :: Tienda Vodafone y Yoigo", 45);
-	flfact_tpv.iface.imprimirDatos(":: Ordenadores :: Reparamos tu equipo informático", 45);	
+	flfact_tpv.iface.imprimirDatos(":: Ordenadores :: Reparamos tu equipo informï¿½tico", 45);	
 	flfact_tpv.iface.impNuevaLinea();
 	flfact_tpv.iface.impNuevaLinea();
 	flfact_tpv.iface.impNuevaLinea();
@@ -780,10 +780,138 @@ function ivaIncluido_imprimirTiquePOS(codComanda:String, impresora:String, qryTi
 //// IVA INCLUIDO ///////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////
 
+/** @class_definition ivaIncluido */
+/////////////////////////////////////////////////////////////////
+//// IVA INCLUIDO ///////////////////////////////////////////////
+function ivaIncluido_imprimirTiquePOS(codComanda:String, impresora:String, qryTicket:FLSqlQuery)
+{
+	var util= new FLUtil;
+	flfact_tpv.iface.establecerImpresora(impresora);
+
+	var primerRegistro= true;
+	var total:String;
+	var agente:String;
+	var totalLinea:Number;
+	var pvpUnitarioIva:Number;
+	var descripcion:String;
+	var codColor:String;
+	var formaPago:String;
+
+	if (!qryTicket.exec()) {
+		return false;
+	}
+	while (qryTicket.next()) {
+		if (primerRegistro) {
+			flfact_tpv.iface.impResaltar(true);
+			flfact_tpv.iface.impSubrayar(true);
+			flfact_tpv.iface.imprimirDatos(qryTicket.value("empresa.nombre"));
+			flfact_tpv.iface.impResaltar(false);
+			flfact_tpv.iface.impSubrayar(false);
+			flfact_tpv.iface.impNuevaLinea();
+			flfact_tpv.iface.imprimirDatos(qryTicket.value("empresa.direccion"));
+			flfact_tpv.iface.impNuevaLinea();
+			flfact_tpv.iface.imprimirDatos(qryTicket.value("empresa.ciudad"));
+			flfact_tpv.iface.impNuevaLinea();
+			flfact_tpv.iface.imprimirDatos("Telef.  ");
+			flfact_tpv.iface.imprimirDatos(qryTicket.value("empresa.telefono"));
+			flfact_tpv.iface.impNuevaLinea();
+			flfact_tpv.iface.imprimirDatos("N.I.F.  ");
+			flfact_tpv.iface.imprimirDatos(qryTicket.value("empresa.cifnif"));
+			flfact_tpv.iface.impNuevaLinea();
+			flfact_tpv.iface.impNuevaLinea();
+			flfact_tpv.iface.imprimirDatos("Fra. Simplificada: " + qryTicket.value("tpv_comandas.codigo"));
+			flfact_tpv.iface.impNuevaLinea();
+			flfact_tpv.iface.imprimirDatos("Fecha: " + util.dateAMDtoDMA(qryTicket.value("tpv_comandas.fecha")));
+			var hora= qryTicket.value("tpv_comandas.hora").toString();
+			hora = hora.right(8);
+			hora = hora.left(5);
+			flfact_tpv.iface.imprimirDatos("   Hora: " + hora);
+			flfact_tpv.iface.impNuevaLinea();
+			flfact_tpv.iface.impNuevaLinea();
+			flfact_tpv.iface.imprimirDatos("DESCRIPCION", 25);
+			flfact_tpv.iface.imprimirDatos("CANTIDAD", 10, 2);
+			flfact_tpv.iface.imprimirDatos("IMPORTE", 10, 2);
+			flfact_tpv.iface.impNuevaLinea();
+
+			total = util.roundFieldValue(qryTicket.value("tpv_comandas.total"), "tpv_comandas", "total");
+			agente = qryTicket.value("tpv_agentes.descripcion");
+		}
+
+		primerRegistro = false;
+
+		descripcion = qryTicket.value("tpv_lineascomanda.descripcion");		
+		cantidad = qryTicket.value("tpv_lineascomanda.cantidad");
+		pvpUnitarioIva = qryTicket.value("tpv_lineascomanda.pvpunitarioiva");
+		totalLinea = util.roundFieldValue(pvpUnitarioIva * cantidad, "tpv_comandas", "total");
+		totaliva = util.roundFieldValue(qryTicket.value("tpv_comandas.totaliva"), "tpv_comandas", "totaliva");
+
+		flfact_tpv.iface.imprimirDatos(descripcion, 25);
+		flfact_tpv.iface.imprimirDatos(cantidad, 10, 2);
+		flfact_tpv.iface.imprimirDatos(totalLinea, 10, 2);
+		flfact_tpv.iface.impNuevaLinea();
+	}
+
+	
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.imprimirDatos("Total factura.", 30);
+	flfact_tpv.iface.imprimirDatos(total, 10,2);
+	flfact_tpv.iface.imprimirDatos("e.", 3);	
+
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.imprimirDatos("*** 21% I.V.A. INCLUIDO ***");
+
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.imprimirDatos("Ud. ha pagado", 14);
+	flfact_tpv.iface.imprimirDatos(totaliva, 6,2);
+	flfact_tpv.iface.imprimirDatos("e por el 21% de IVA", 20);
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.imprimirDatos("GRACIAS POR SU VISITA");
+
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.impSubrayar(true);
+	flfact_tpv.iface.imprimirDatos("Le atendio:");
+	flfact_tpv.iface.impSubrayar(false);
+	flfact_tpv.iface.imprimirDatos("   " + agente);
+	flfact_tpv.iface.impNuevaLinea();	
+	flfact_tpv.iface.imprimirDatos(":: SIENTE :: Deporte, Turismo y Tecnologia", 45);	
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.imprimirDatos("Tienda Vodafone y Yoigo", 45);
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.imprimirDatos("Reparacion y venta de equipo informatico", 45);
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.imprimirDatos("Reparacion y venta de bicis y motos", 45);
+	flfact_tpv.iface.impNuevaLinea();	
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.impNuevaLinea();
+	flfact_tpv.iface.impNuevaLinea();
+	
+	
+	flfact_tpv.iface.imprimirDatos(" ");
+	flfact_tpv.iface.impCortar();
+	flfact_tpv.iface.flushImpresora();
+
+	var printer= new FLPosPrinter();
+	printer.setPrinterName( impresora );
+	printer.send( "ESC:1B,40," );
+	printer.flush();
+}
+//// IVA INCLUIDO ///////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+
 /** @class_definition head */
 /////////////////////////////////////////////////////////////////
 //// DESARROLLO /////////////////////////////////////////////////
 
 //// DESARROLLO /////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
+
 

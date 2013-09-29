@@ -66,8 +66,8 @@
         <null>false</null>
         <pk>false</pk>
         <type>double</type>
-        <partI>6</partI>
-        <partD>2</partD>
+        <partI>7</partI>
+        <partD>3</partD>
         <default>1</default>
     </field>
     <field>
