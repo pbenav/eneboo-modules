@@ -1,8 +1,8 @@
 /***************************************************************************
-                 in_config.qs  -  description
+                 mandatoscli.qs  -  description
                              -------------------
-    begin                : jue nov 5 2009
-    copyright            : (C) 2009 by InfoSiAL S.L.
+    begin                : mar dic 10 2013
+    copyright            : (C) 2013 by InfoSiAL S.L.
     email                : mail@infosial.com
  ***************************************************************************/
 /***************************************************************************
@@ -24,15 +24,18 @@
 //////////////////////////////////////////////////////////////////
 //// INTERNA /////////////////////////////////////////////////////
 class interna {
-	var ctx:Object;
-	function interna( context ) { this.ctx = context; }
-	function main() {
-		this.ctx.interna_main();
+    var ctx;
+
+	function interna( context ) {
+		this.ctx = context;
 	}
 	function init() {
 		this.ctx.interna_init();
 	}
-	function calculateField(fN:String):String {
+	function validateForm() {
+		return this.ctx.interna_validateForm();
+	}
+	function calculateField(fN) {
 		return this.ctx.interna_calculateField(fN);
 	}
 }
@@ -43,12 +46,17 @@ class interna {
 //////////////////////////////////////////////////////////////////
 //// OFICIAL /////////////////////////////////////////////////////
 class oficial extends interna {
-	function oficial( context ) { interna( context ); }
-	function bufferChanged(fN:String) {
-		return this.ctx.oficial_bufferChanged(fN);
+	function oficial( context ) { 
+		interna( context ); 
+	} 
+	function bufferChanged(fN) { 
+		this.ctx.oficial_bufferChanged(fN); 
 	}
-	function tituloConexion() {
-		return this.ctx.oficial_tituloConexion();
+	function commonCalculateField(fN, cursor) {
+		return this.ctx.oficial_commonCalculateField(fN, cursor);
+	}
+	function commonBufferChanged(fN, miForm) {
+		return this.ctx.oficial_commonBufferChanged(fN, miForm);
 	}
 }
 //// OFICIAL /////////////////////////////////////////////////////
@@ -58,7 +66,9 @@ class oficial extends interna {
 /////////////////////////////////////////////////////////////////
 //// DESARROLLO /////////////////////////////////////////////////
 class head extends oficial {
-	function head( context ) { oficial ( context ); }
+    function head( context ) { 
+    	oficial ( context ); 
+    }
 }
 //// DESARROLLO /////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////
@@ -67,7 +77,15 @@ class head extends oficial {
 /////////////////////////////////////////////////////////////////
 //// INTERFACE  /////////////////////////////////////////////////
 class ifaceCtx extends head {
-	function ifaceCtx( context ) { head( context ); }
+    function ifaceCtx( context ) { 
+    	head( context ); 
+    }
+    function pub_commonBufferChanged(fN, miForm) {
+    	return this.commonBufferChanged(fN, miForm);
+    }
+    function pub_commonCalculateField(fN, cursor) {
+    	return this.commonCalculateField(fN, cursor);
+    }
 }
 
 const iface = new ifaceCtx( this );
@@ -81,140 +99,92 @@ const iface = new ifaceCtx( this );
 
 //////////////////////////////////////////////////////////////////
 //// INTERNA /////////////////////////////////////////////////////
-/**
-\C Los datos generales son únicos, por tanto formulario de no presenta los botones de navegación por registros.
-\end
-
-\D La gestión del formulario se hace de forma manual mediante el objeto f (FLFormSearchDB)
-\end
-\end */
-function interna_main()
-{
-	var f:Object = new FLFormSearchDB("in_config");
-	var cursor:FLSqlCursor = f.cursor();
-
-	cursor.select();
-	if (!cursor.first()) {
-		cursor.setModeAccess(cursor.Insert);
-	} else {
-		cursor.setModeAccess(cursor.Edit);
-	}
-	f.setMainWidget();
-	if (cursor.modeAccess() == cursor.Insert) {
-		f.child("pushButtonCancel").setDisabled(true);
-	}
-	cursor.refreshBuffer();
-	var commitOk:Boolean = false;
-	var acpt:Boolean;
-	cursor.transaction(false);
-	while (!commitOk) {
-		acpt = false;
-		f.exec("id");
-		acpt = f.accepted();
-		if (!acpt) {
-			if (cursor.rollback())
-				commitOk = true;
-		} else {
-			if (cursor.commitBuffer()) {
-				cursor.commit();
-				commitOk = true;
-			}
-		}
-		f.close();
-	}
-}
-
 function interna_init()
 {
-	var util:FLUtil = new FLUtil;
-	var cursor:FLSqlCursor = this.cursor();
-
-	connect (cursor, "bufferChanged(QString)", this, "iface.bufferChanged");
-	this.iface.tituloConexion();
-}
-
-function interna_calculateField(fN:String):String
-{
-	var util:FLUtil = new FLUtil;
-	var cursor:FLSqlCursor = this.cursor();
-	var valor:String;
-
-	switch (fN) {
-		case "puerto": {
-			var tipoDriver:String = cursor.valueBuffer("driver");
-			switch (tipoDriver) {
-				case "PostgreSQL": {
-					valor = 5432;
-					break;
-				}
-				case "MySQL": {
-					valor = 3306;
-					break;
-				}
-			}
-			break;
-		}
-		default: {
-			valor = this.iface.__calculateField(fN);
-			break;
-		}
+	var _i = this.iface;
+	var cursor = this.cursor();
+	
+	connect(cursor, "bufferChanged(QString)", _i, "bufferChanged");
+	
+	if(cursor.modeAccess() == cursor.Insert) {
+		sys.setObjText(this,"fdbFechaCaducidad",_i.calculateField("fechacaducidad"));
 	}
-
-	return valor;
 }
 
+function interna_calculateField(fN)
+{
+	var _i = this.iface;
+	var cursor = this.cursor();
+	
+	return _i.commonCalculateField(fN, cursor);
+}
+
+function interna_validateForm()
+{
+	var cursor = this.cursor();
+
+	return true;
+}
 //// INTERNA /////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////
 
 /** @class_definition oficial */
 //////////////////////////////////////////////////////////////////
 //// OFICIAL /////////////////////////////////////////////////////
-function oficial_bufferChanged(fN:String)
-{
-	var util:FLUtil = new FLUtil;
-	var cursor:FLSqlCursor = this.cursor();
-	switch (fN) {
-		case "basedatoslocal": {
-			this.iface.tituloConexion();
-			break;
-		}
-		case "driver": {
-			this.child("fdbPuerto").setValue(this.iface.calculateField("puerto"));
-			break;
-		}
-	}
-}
 
-function oficial_tituloConexion()
+function oficial_bufferChanged(fN)
 {
-	var util:FLUtil = new FLUtil;
-	var cursor:FLSqlCursor = this.cursor();
-	var titulo:String;
-	var habilitar:Boolean;
+	var _i = this.iface;
+	var cursor = this.cursor();
 	
-	switch (cursor.valueBuffer("basedatoslocal")) {
-		case "Ambas": {
-			habilitar = false;
-			titulo = "";
-			this.child("fdbServidor").setValue("");
-			this.child("fdbBaseDatos").setValue("");
-			break;
-		}
-		case "Origen": {
-			habilitar = true;
-			titulo = util.translate("scripts", "Conexión a base de datos destino");
-			break;
-		}
-		case "Destino": {
-			habilitar = true;
-			titulo = util.translate("scripts", "Conexión a base de datos origen");
+	switch (fN) {
+		default: {
+			_i.commonBufferChanged(fN, this);
 			break;
 		}
 	}
-
-	this.child("gbxConexion").enabled = habilitar;
-	this.child("gbxConexion").title = titulo;
 }
+
+function oficial_commonCalculateField(fN, cursor)
+{
+	var _i = this.iface;
+	var valor;
+	
+	switch (fN) {
+		case "fechacaducidad": {
+			var fechaAnt;
+			fechaAnt = cursor.valueBuffer("fechaultadeudo");
+			if(!fechaAnt || fechaAnt == "") {
+				fechaAnt = cursor.valueBuffer("fechafirma");
+				if(!fechaAnt || fechaAnt == "") {
+					return false;
+				}
+			}
+			valor = AQUtil.addMonths(fechaAnt,36);
+			break;
+		}
+	}
+	return valor;
+}
+
+function oficial_commonBufferChanged(fN, miForm)
+{
+	var _i = this.iface;
+	var cursor = miForm.cursor();
+
+	switch(fN) {
+		case "fechafirma": {
+			sys.setObjText(miForm,"fdbFechaCaducidad",_i.commonCalculateField("fechacaducidad",cursor));
+		}
+		case "fechaultadeudo": {
+			sys.setObjText(miForm,"fdbFechaCaducidad",_i.calculateField("fechacaducidad",cursor));
+		}
+		default: {
+			break;
+		}
+	}
+}
+
 //// OFICIAL /////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////
 
