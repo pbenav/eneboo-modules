@@ -1,3 +1,4 @@
+var form = this;
 /***************************************************************************
                  flfact_tpv.qs  -  description
                              -------------------
@@ -28,25 +29,25 @@ class interna {
     var ctx:Object;
     function interna( context ) { this.ctx = context; }
     function init() { this.ctx.interna_init(); }
-        function beforeCommit_tpv_comandas(curComanda:FLSqlCursor):Boolean {
+        function beforeCommit_tpv_comandas(curComanda:FLSqlCursor) {
                 return this.ctx.interna_beforeCommit_tpv_comandas(curComanda);
         }
-        function afterCommit_tpv_comandas(curComanda:FLSqlCursor):Boolean  {
+        function afterCommit_tpv_comandas(curComanda:FLSqlCursor)  {
                 return this.ctx.interna_afterCommit_tpv_comandas(curComanda);
         }
-        function beforeCommit_tpv_pagoscomanda(curPago:FLSqlCursor):Boolean {
+        function beforeCommit_tpv_pagoscomanda(curPago:FLSqlCursor) {
                 return this.ctx.interna_beforeCommit_tpv_pagoscomanda(curPago);
         }
-        function afterCommit_tpv_lineasvale(curLinea:FLSqlCursor):Boolean  {
+        function afterCommit_tpv_lineasvale(curLinea:FLSqlCursor)  {
                 return this.ctx.interna_afterCommit_tpv_lineasvale(curLinea);
         }
-        function afterCommit_tpv_pagoscomanda(curPago:FLSqlCursor):Boolean  {
+        function afterCommit_tpv_pagoscomanda(curPago:FLSqlCursor)  {
                 return this.ctx.interna_afterCommit_tpv_pagoscomanda(curPago);
         }
-        function afterCommit_tpv_lineascomanda(curLinea:FLSqlCursor):Boolean {
+        function afterCommit_tpv_lineascomanda(curLinea:FLSqlCursor) {
                 return this.ctx.interna_afterCommit_tpv_lineascomanda(curLinea);
         }
-        function beforeCommit_tpv_arqueos(curArqueo:FLSqlCursor):Boolean {
+        function beforeCommit_tpv_arqueos(curArqueo:FLSqlCursor) {
                 return this.ctx.interna_beforeCommit_tpv_arqueos(curArqueo);
         }
 }
@@ -61,46 +62,46 @@ class oficial extends interna {
         var printerXPos:Number;
         var printerYPos:Number;
         var printerESC:String;
-        var textoPrinter:String = "";
+        var textoPrinter= "";
 
         var curFactura:FLSqlCursor;
         var curLineaFactura:FLSqlCursor;
 
         function oficial( context ) { interna( context ); }
-        function ejecutarQry(tabla, campos, where, listaTablas):Array {
+        function ejecutarQry(tabla, campos, where, listaTablas) {
                 return this.ctx.oficial_ejecutarQry(tabla, campos, where, listaTablas);
         }
-        function copiarLinea(idFactura:Number,curLineaComanda:FLSqlCursor):Boolean {
+        function copiarLinea(idFactura:Number,curLineaComanda:FLSqlCursor) {
                 return this.ctx.oficial_copiarLinea(idFactura,curLineaComanda);
         }
-        function copiarLineas(idComanda:Number, idFactura:Number):Boolean {
+        function copiarLineas(idComanda:Number, idFactura:Number) {
                 return this.ctx.oficial_copiarLineas(idComanda, idFactura);
         }
-        function crearFactura(curComanda:FLSqlCursor):Number {
+        function crearFactura(curComanda:FLSqlCursor) {
                 return this.ctx.oficial_crearFactura(curComanda);
         }
-        function borrarFactura(idFactura:String):Boolean {
+        function borrarFactura(idFactura:String) {
                 return this.ctx.oficial_borrarFactura(idFactura);
         }
         function valoresIniciales() {
                 return this.ctx.oficial_valoresIniciales();
         }
-        function datosLineaFactura(curLineaComanda:FLSqlCursor):Boolean {
+        function datosLineaFactura(curLineaComanda:FLSqlCursor) {
                 return this.ctx.oficial_datosLineaFactura(curLineaComanda);
         }
-        function generarRecibos(curComanda:FLSqlCursor):Boolean {
+        function generarRecibos(curComanda:FLSqlCursor) {
                 return this.ctx.oficial_generarRecibos(curComanda);
         }
-        function generarRecibo(qryFactura:FLSqlQuery, datosRecibo:Array):Number {
+        function generarRecibo(qryFactura:FLSqlQuery, datosRecibo:Array) {
                 return this.ctx.oficial_generarRecibo(qryFactura, datosRecibo);
         }
-        function pagarRecibo(idRecibo:String, datosRecibo:Array):Boolean {
+        function pagarRecibo(idRecibo:String, datosRecibo:Array) {
                 return this.ctx.oficial_pagarRecibo(idRecibo, datosRecibo);
         }
-        function totalesFactura():Boolean {
+        function totalesFactura() {
                 return this.ctx.oficial_totalesFactura();
         }
-        function datosFactura(curComanda:FLSqlCursor):Boolean {
+        function datosFactura(curComanda:FLSqlCursor) {
                 return this.ctx.oficial_datosFactura(curComanda);
         }
         function imprimirDatos(datos:String, maxLon:Number, alineacion:Number) {
@@ -127,78 +128,78 @@ class oficial extends interna {
         function impCortar() {
                 return this.ctx.oficial_impCortar();
         }
-        function espaciosIzquierda(texto:String, totalLongitud:Number):String {
+        function espaciosIzquierda(texto:String, totalLongitud:Number) {
                 return this.ctx.oficial_espaciosIzquierda(texto, totalLongitud);
         }
-        function subcuentaDefecto(nombre:String, codEjercicio:String):Array {
+        function subcuentaDefecto(nombre:String, codEjercicio:String) {
                 return this.ctx.oficial_subcuentaDefecto(nombre, codEjercicio);
         }
-        function subcuentaCausa(codCausa:String, codEjercicio:String):Array {
+        function subcuentaCausa(codCausa:String, codEjercicio:String) {
                 return this.ctx.oficial_subcuentaCausa(codCausa, codEjercicio);
         }
-        function generarAsientoArqueo(curArqueo:FLSqlCursor):Boolean {
+        function generarAsientoArqueo(curArqueo:FLSqlCursor) {
                 return this.ctx.oficial_generarAsientoArqueo(curArqueo);
         }
-        function comprobarRegularizacion(curArqueo:FLSqlCursor):Boolean {
+        function comprobarRegularizacion(curArqueo:FLSqlCursor) {
                 return this.ctx.oficial_comprobarRegularizacion(curArqueo);
         }
-        function regenerarAsiento(curArqueo:FLSqlCursor, valoresDefecto:Array):Array {
+        function regenerarAsiento(curArqueo:FLSqlCursor, valoresDefecto:Array) {
                 return this.ctx.oficial_regenerarAsiento(curArqueo, valoresDefecto);
         }
 /*
-        function generarPartidasCliente(curArqueo:FLSqlCursor, idAsiento:Number, valoresDefecto:Array):Boolean {
+        function generarPartidasCliente(curArqueo:FLSqlCursor, idAsiento:Number, valoresDefecto:Array) {
                 return this.ctx.oficial_generarPartidasCliente(curArqueo, idAsiento, valoresDefecto);
         }
-        function generarPartidasVentasIva(curArqueo:FLSqlCursor, idAsiento:Number, valoresDefecto:Array):Boolean {
+        function generarPartidasVentasIva(curArqueo:FLSqlCursor, idAsiento:Number, valoresDefecto:Array) {
                 return this.ctx.oficial_generarPartidasVentasIva(curArqueo, idAsiento, valoresDefecto);
         }
-        function generarPartidasPago(curArqueo:FLSqlCursor, idAsiento:Number, valoresDefecto:Array):Boolean {
+        function generarPartidasPago(curArqueo:FLSqlCursor, idAsiento:Number, valoresDefecto:Array) {
                 return this.ctx.oficial_generarPartidasPago(curArqueo, idAsiento, valoresDefecto);
         }
 */
-        function generarPartidasMovi(curArqueo:FLSqlCursor, idAsiento:Number, valoresDefecto:Array):Boolean {
+        function generarPartidasMovi(curArqueo:FLSqlCursor, idAsiento:Number, valoresDefecto:Array) {
                 return this.ctx.oficial_generarPartidasMovi(curArqueo, idAsiento, valoresDefecto);
         }
-        function generarPartidasMoviCierre(curArqueo:FLSqlCursor, idAsiento:Number, valoresDefecto:Array):Boolean {
+        function generarPartidasMoviCierre(curArqueo:FLSqlCursor, idAsiento:Number, valoresDefecto:Array) {
                 return this.ctx.oficial_generarPartidasMoviCierre(curArqueo, idAsiento, valoresDefecto);
         }
-        function generarPartidasDif(curArqueo:FLSqlCursor, idAsiento:Number, valoresDefecto:Array):Boolean {
+        function generarPartidasDif(curArqueo:FLSqlCursor, idAsiento:Number, valoresDefecto:Array) {
                 return this.ctx.oficial_generarPartidasDif(curArqueo, idAsiento, valoresDefecto);
         }
-        function conceptoPartida(curArqueo:FLSqlCursor, masConcepto:String):String {
+        function conceptoPartida(curArqueo:FLSqlCursor, masConcepto:String) {
                 return this.ctx.oficial_conceptoPartida(curArqueo, masConcepto);
         }
-        function subcuentaDefecto(nombre:String, codEjercicio:String):Array {
+        function subcuentaDefecto(nombre:String, codEjercicio:String) {
                 return this.ctx.oficial_subcuentaDefecto(nombre, codEjercicio);
         }
-        function borrarAsientoArqueo(curArqueo:FLSqlCursor, idAsiento:String):Boolean {
+        function borrarAsientoArqueo(curArqueo:FLSqlCursor, idAsiento:String) {
                 return this.ctx.oficial_borrarAsientoArqueo(curArqueo, idAsiento);
         }
-        function sincronizarConFacturacion(curComanda:FLSqlCursor):Boolean {
+        function sincronizarConFacturacion(curComanda:FLSqlCursor) {
                 return this.ctx.oficial_sincronizarConFacturacion(curComanda);
         }
-        function obtenerCodigoComanda(curComanda:FLSqlCursor):String {
+        function obtenerCodigoComanda(curComanda:FLSqlCursor) {
                 return this.ctx.oficial_obtenerCodigoComanda(curComanda);
         }
-        function comprobarSincronizacion(curComanda:FLSqlCursor):Boolean {
+        function comprobarSincronizacion(curComanda:FLSqlCursor) {
                 return this.ctx.oficial_comprobarSincronizacion(curComanda);
         }
-        function generarPartidasArqueo(curArqueo:FLSqlCursor, datosAsiento:Array, valoresDefecto:Array):Boolean {
+        function generarPartidasArqueo(curArqueo:FLSqlCursor, datosAsiento:Array, valoresDefecto:Array) {
                 return this.ctx.oficial_generarPartidasArqueo(curArqueo, datosAsiento, valoresDefecto);
         }
-        function valorDefectoTPV(campo:String):String {
+        function valorDefectoTPV(campo:String) {
                 return this.ctx.oficial_valorDefectoTPV(campo);
         }
-        function obtenerSerieFactura(curComanda:String):String {
+        function obtenerSerieFactura(curComanda:String) {
                 return this.ctx.oficial_obtenerSerieFactura(curComanda);
         }
-        function borrarRecibosFactura(idFactura:String):Boolean {
+        function borrarRecibosFactura(idFactura:String) {
                 return this.ctx.oficial_borrarRecibosFactura(idFactura);
         }
-        function borrarLineasFactura(idFactura:String):Boolean {
+        function borrarLineasFactura(idFactura:String) {
                 return this.ctx.oficial_borrarLineasFactura(idFactura);
         }
-        function modificarFactura(curComanda:FLSqlCursor, idFactura:String):Number {
+        function modificarFactura(curComanda:FLSqlCursor, idFactura:String) {
                 return this.ctx.oficial_modificarFactura(curComanda, idFactura);
         }
         function comprobarAlmacenesComandas() {
@@ -209,15 +210,46 @@ class oficial extends interna {
 //// OFICIAL /////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////
 
+/** @class_declaration funNumSerie */
+/////////////////////////////////////////////////////////////////
+//// FUN_NUMEROS_SERIE /////////////////////////////////////////////////
+class funNumSerie extends oficial /** %from: oficial */ {
+	function funNumSerie( context ) { oficial ( context ); }
+	function datosLineaFactura(curLineaComanda:FLSqlCursor) {
+		return this.ctx.funNumSerie_datosLineaFactura(curLineaComanda);
+	}
+
+	function copiarLinea(idFactura:Number,curLineaComanda:FLSqlCursor) {
+		return this.ctx.funNumSerie_copiarLinea(idFactura,curLineaComanda);
+	}
+	function afterCommit_tpv_lineascomandans(curL:FLSqlCursor) {
+		return this.ctx.funNumSerie_afterCommit_tpv_lineascomandans(curL);
+	}
+}
+//// FUN_NUMEROS_SERIE //////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+
+/** @class_declaration ivaIncluido */
+//////////////////////////////////////////////////////////////////
+//// IVA INCLUIDO ////////////////////////////////////////////////
+class ivaIncluido extends funNumSerie /** %from: oficial */ {
+	function ivaIncluido( context ) { funNumSerie( context ); }
+	function datosLineaFactura(curLineaComanda:FLSqlCursor) {
+		return this.ctx.ivaIncluido_datosLineaFactura(curLineaComanda);
+	}
+}
+//// IVA INCLUIDO ////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+
 /** @class_declaration head */
 /////////////////////////////////////////////////////////////////
 //// DESARROLLO /////////////////////////////////////////////////
-class head extends oficial {
-    function head( context ) { oficial ( context ); }
-        function pub_crearFactura(curComanda:FLSqlCursor):Number {
+class head extends ivaIncluido {
+    function head( context ) { ivaIncluido ( context ); }
+        function pub_crearFactura(curComanda:FLSqlCursor) {
                 return this.crearFactura(curComanda);
         }
-        function pub_generarRecibos(curComanda:FLSqlCursor):Boolean {
+        function pub_generarRecibos(curComanda:FLSqlCursor) {
                 return this.generarRecibos(curComanda);
         }
 }
@@ -230,19 +262,16 @@ class head extends oficial {
 //// INTERFACE  /////////////////////////////////////////////////
 class ifaceCtx extends head {
         function ifaceCtx( context ) { head( context ); }
-        function pub_ejecutarQry(tabla, campos, where, listaTablas):Array {
+        function pub_ejecutarQry(tabla, campos, where, listaTablas) {
                 return this.ejecutarQry(tabla, campos, where, listaTablas);
         }
-        function pub_borrarAsientoArqueo(curArqueo:FLSqlCursor, idAsiento:String):Boolean {
+        function pub_borrarAsientoArqueo(curArqueo:FLSqlCursor, idAsiento:String) {
                 return this.borrarAsientoArqueo(curArqueo, idAsiento);
         }
-        function pub_valorDefectoTPV(campo:String):String {
+        function pub_valorDefectoTPV(campo:String) {
                 return this.valorDefectoTPV(campo);
         }
 }
-
-
-
 //// INTERFACE  /////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////
 
@@ -260,8 +289,8 @@ Si es la primera vez que se ejecuta establece los valores iniciales de Datos Gen
 */
 function interna_init()
 {
-        var cursor:FLSqlCursor = new FLSqlCursor("tpv_datosgenerales");
-        var util:FLUtil = new FLUtil();
+        var cursor= new FLSqlCursor("tpv_datosgenerales");
+        var util= new FLUtil();
         cursor.select();
         if (!cursor.first()) {
                 MessageBox.information(util.translate("scripts","Se establecerán algunos valores iniciales para empezar a trabajar."),MessageBox.Ok, MessageBox.NoButton, MessageBox.NoButton);
@@ -273,13 +302,11 @@ function interna_init()
 
 /** \C Si se ha seleccionado la opción de facturación integrada, se creará una factura por venta. Si no se ha seleccionado, se generará cuando la venta sea a cuenta y el usuario lo permita
 \end */
-function interna_beforeCommit_tpv_comandas(curComanda:FLSqlCursor):Boolean
+function interna_beforeCommit_tpv_comandas(curComanda:FLSqlCursor)
 {
-        var util:FLUtil = new FLUtil();
-        var codComanda:String = curComanda.valueBuffer("codigo");
-        var idTpvComanda:String = curComanda.valueBuffer("idtpv_comanda");
-
-
+        var util= new FLUtil();
+        var codComanda= curComanda.valueBuffer("codigo");
+        var idTpvComanda= curComanda.valueBuffer("idtpv_comanda");
         switch (curComanda.modeAccess()) {
                 case curComanda.Insert: {
                         if (curComanda.valueBuffer("codigo") == "0") {
@@ -292,7 +319,7 @@ function interna_beforeCommit_tpv_comandas(curComanda:FLSqlCursor):Boolean
 
                         if (curComanda.modeAccess() == curComanda.Insert) {
                                 if (util.sqlSelect("tpv_comandas", "idtpv_comanda", "codigo = '" + codComanda + "' AND idtpv_comanda != " + idTpvComanda)) {
-                                        var res:Number = MessageBox.information(util.translate("scripts", "Ya existe una venta con este código.\n¿Desea continuar?"), MessageBox.Yes, MessageBox.No);
+                                        var res= MessageBox.information(util.translate("scripts", "Ya existe una venta con este código.\n¿Desea continuar?"), MessageBox.Yes, MessageBox.No);
                                         if (res != MessageBox.Yes) {
                                                 return false;
                                         }
@@ -309,16 +336,16 @@ function interna_beforeCommit_tpv_comandas(curComanda:FLSqlCursor):Boolean
         return true;
 }
 
-function interna_afterCommit_tpv_comandas(curComanda:FLSqlCursor):Boolean
+function interna_afterCommit_tpv_comandas(curComanda:FLSqlCursor)
 {
         return true;
 }
 
-function interna_beforeCommit_tpv_pagoscomanda(curPago:FLSqlCursor):Boolean
+function interna_beforeCommit_tpv_pagoscomanda(curPago:FLSqlCursor)
 {
-        var util:FLUtil = new FLUtil;
+        var util= new FLUtil;
         if (!curPago.valueBuffer("idtpv_arqueo")) {
-                var qryarqueos:FLSqlQuery = new FLSqlQuery();
+                var qryarqueos= new FLSqlQuery();
                 qryarqueos.setTablesList("tpv_arqueos");
                 qryarqueos.setSelect("idtpv_arqueo");
                 qryarqueos.setFrom("tpv_arqueos");
@@ -345,22 +372,22 @@ function interna_beforeCommit_tpv_pagoscomanda(curPago:FLSqlCursor):Boolean
         return true;
 }
 
-function interna_afterCommit_tpv_pagoscomanda(curPago:FLSqlCursor):Boolean
+function interna_afterCommit_tpv_pagoscomanda(curPago:FLSqlCursor)
 {
-        var util:FLUtil = new FLUtil;
+        var util= new FLUtil;
 
         switch(curPago.modeAccess()) {
                 case curPago.Insert:
                 case curPago.Edit: {
                         /** \C Si se ha pagado con un vale, se actualiza su saldo
                         \end */
-                        var refVale:String = curPago.valueBuffer("refvale");
+                        var refVale= curPago.valueBuffer("refvale");
                         if (refVale && refVale != "") {
-                                var importeVale:String = util.sqlSelect("tpv_vales", "importe", "referencia = '" + refVale + "'");
-                                var gastado:String = util.sqlSelect("tpv_pagoscomanda", "SUM(importe)", "refvale = '" + refVale + "'");
+                                var importeVale= util.sqlSelect("tpv_vales", "importe", "referencia = '" + refVale + "'");
+                                var gastado= util.sqlSelect("tpv_pagoscomanda", "SUM(importe)", "refvale = '" + refVale + "'");
                                 if (!gastado)
                                         gastado = 0;
-                                var saldoVale:Number = parseFloat(importeVale) - parseFloat(gastado);
+                                var saldoVale= parseFloat(importeVale) - parseFloat(gastado);
                                 if (saldoVale < 0) {
                                         MessageBox.warning(util.translate("scripts", "El importe del pago es superior al saldo del vale"), MessageBox.Ok, MessageBox.NoButton);
                                         return false;
@@ -376,7 +403,7 @@ function interna_afterCommit_tpv_pagoscomanda(curPago:FLSqlCursor):Boolean
 
 /** \C  Al modificar las líneas de vale (artículos devueltos), el stock de los artículos correspondientes se modifica en consonancia
 \end */
-function interna_afterCommit_tpv_lineasvale(curLinea:FLSqlCursor):Boolean
+function interna_afterCommit_tpv_lineasvale(curLinea:FLSqlCursor)
 {
         if (!flfactalma.iface.pub_controlStockValesTPV(curLinea))
                 return false;
@@ -386,7 +413,7 @@ function interna_afterCommit_tpv_lineasvale(curLinea:FLSqlCursor):Boolean
 
 /** \C  Al modificar las líneas de comanda (artículos vendidos), el stock de los artículos correspondientes se modifica en consonancia
 \end */
-function interna_afterCommit_tpv_lineascomanda(curLinea:FLSqlCursor):Boolean
+function interna_afterCommit_tpv_lineascomanda(curLinea:FLSqlCursor)
 {
         if (!flfactalma.iface.pub_controlStockComandasCli(curLinea))
                 return false;
@@ -396,13 +423,13 @@ function interna_afterCommit_tpv_lineascomanda(curLinea:FLSqlCursor):Boolean
 
 /** \C  Al Cerrar o abrir el arqueo se genera o borra el correspondiente asiento contable
 \end */
-function interna_beforeCommit_tpv_arqueos(curArqueo:FLSqlCursor):Boolean
+function interna_beforeCommit_tpv_arqueos(curArqueo:FLSqlCursor)
 {
         if (sys.isLoadedModule("flcontppal") && flfactppal.iface.pub_valorDefectoEmpresa("contintegrada")) {
                 switch (curArqueo.modeAccess()) {
                         case curArqueo.Edit: {
-                                var estadoActual:Boolean = curArqueo.valueBuffer("abierta");
-                                var estadoPrevio:Boolean = curArqueo.valueBufferCopy("abierta");
+                                var estadoActual= curArqueo.valueBuffer("abierta");
+                                var estadoPrevio= curArqueo.valueBufferCopy("abierta");
                                 if (estadoActual != estadoPrevio) {
                                         if (!estadoActual) {
                                                 if (!this.iface.generarAsientoArqueo(curArqueo)) {
@@ -419,16 +446,15 @@ function interna_beforeCommit_tpv_arqueos(curArqueo:FLSqlCursor):Boolean
 //// INTERNA /////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////
 
-
 /** @class_definition oficial */
 //////////////////////////////////////////////////////////////////
 //// OFICIAL /////////////////////////////////////////////////////
-function oficial_comprobarSincronizacion(curComanda:FLSqlCursor):Boolean
+function oficial_comprobarSincronizacion(curComanda:FLSqlCursor)
 {
-        var util:FLUtil = new FLUtil();
+        var util= new FLUtil();
 
-        var integracionFac:String = util.sqlSelect("tpv_datosgenerales", "integracionfac", "1 = 1");
-        var pendiente:Number = parseFloat(curComanda.valueBuffer("pendiente"));
+        var integracionFac= util.sqlSelect("tpv_datosgenerales", "integracionfac", "1 = 1");
+        var pendiente= parseFloat(curComanda.valueBuffer("pendiente"));
         if (pendiente != 0 || integracionFac || !curComanda.isNull("idfactura")) {
                 if (!this.iface.sincronizarConFacturacion(curComanda)) {
                         return false;
@@ -447,13 +473,13 @@ function oficial_comprobarSincronizacion(curComanda:FLSqlCursor):Boolean
 @return Un array con los datos de los campos seleccionados. Un campo extra
 'result' que es 1 = Ok, 0 = Error, -1 No encontrado
 */
-function oficial_ejecutarQry(tabla, campos, where, listaTablas):Array
+function oficial_ejecutarQry(tabla, campos, where, listaTablas)
 {
-  var util:FLUtil = new FLUtil;
-  var campo:Array = campos.split(",");
+  var util= new FLUtil;
+  var campo= campos.split(",");
   var valor = [];
   valor["result"] = 1;
-  var query:FLSqlQuery = new FLSqlQuery();
+  var query= new FLSqlQuery();
   if (listaTablas)
     query.setTablesList(listaTablas);
   else
@@ -485,7 +511,7 @@ function oficial_ejecutarQry(tabla, campos, where, listaTablas):Array
 @param curLineaComanda cursor de las lineas de la comanda
 @return Boolean, true si la linea se ha copiado correctamente y false si ha habido algún errror
 */
-function oficial_copiarLinea(idFactura:Number,curLineaComanda:FLSqlCursor):Boolean
+function oficial_copiarLinea(idFactura:Number,curLineaComanda:FLSqlCursor)
 {
         if (!this.iface.curLineaFactura)
                 this.iface.curLineaFactura = new FLSqlCursor("lineasfacturascli");
@@ -509,9 +535,9 @@ function oficial_copiarLinea(idFactura:Number,curLineaComanda:FLSqlCursor):Boole
 @param curLineaComanda cursor de las lineas de la comanda
 @return Boolean, true si la linea se ha copiado correctamente y false si ha habido algún errror
 */
-function oficial_datosLineaFactura(curLineaComanda:FLSqlCursor):Boolean
+function oficial_datosLineaFactura(curLineaComanda:FLSqlCursor)
 {
-        var util:FLUtil = new FLUtil;
+        var util= new FLUtil;
         with (this.iface.curLineaFactura) {
                 setValueBuffer("referencia", curLineaComanda.valueBuffer("referencia"));
                 setValueBuffer("descripcion", curLineaComanda.valueBuffer("descripcion"));
@@ -525,7 +551,7 @@ function oficial_datosLineaFactura(curLineaComanda:FLSqlCursor):Boolean
                 setValueBuffer("dtopor", curLineaComanda.valueBuffer("dtopor"));
         }
         /// Para la extensión de subcuenta de ventas por artículos
-        var subctaVentas:Array = flfacturac.iface.pub_subcuentaVentas(curLineaComanda.valueBuffer("referencia"));
+        var subctaVentas= flfacturac.iface.pub_subcuentaVentas(curLineaComanda.valueBuffer("referencia"));
         if (subctaVentas) {
                 this.iface.curLineaFactura.setValueBuffer("codsubcuenta", subctaVentas.codsubcuenta);
                 this.iface.curLineaFactura.setValueBuffer("idsubcuenta", subctaVentas.idsubcuenta);
@@ -538,9 +564,9 @@ function oficial_datosLineaFactura(curLineaComanda:FLSqlCursor):Boolean
 @param idFactura idfentificador de la factura
 @return Boolean true si se han copiado todas las líneas correctamente y fasle si ha habido algún error
 */
-function oficial_copiarLineas(idComanda:Number, idFactura:Number):Boolean
+function oficial_copiarLineas(idComanda:Number, idFactura:Number)
 {
-        var curLineaComanda:FLSqlCursor = new FLSqlCursor("tpv_lineascomanda");
+        var curLineaComanda= new FLSqlCursor("tpv_lineascomanda");
         curLineaComanda.select("idtpv_comanda = " + idComanda);
         while (curLineaComanda.next()) {
                 if(!this.iface.copiarLinea(idFactura,curLineaComanda))
@@ -554,9 +580,9 @@ function oficial_copiarLineas(idComanda:Number, idFactura:Number):Boolean
 @param curComanda cursor de la comanda
 @return False si ha habido algún error y el idFactura se se ha creado correctamente
 */
-function oficial_crearFactura(curComanda:FLSqlCursor):Number
+function oficial_crearFactura(curComanda:FLSqlCursor)
 {
-        var util:FLUtil = new FLUtil();
+        var util= new FLUtil();
         var idFactura:Number;
 
         if (!this.iface.curFactura) {
@@ -600,9 +626,9 @@ function oficial_crearFactura(curComanda:FLSqlCursor):Number
 @param idFactura Número de la factura
 @return False si ha habido algún error y el idFactura se se ha creado correctamente
 */
-function oficial_modificarFactura(curComanda:FLSqlCursor, idFactura:String):Number
+function oficial_modificarFactura(curComanda:FLSqlCursor, idFactura:String)
 {
-        var util:FLUtil = new FLUtil();
+        var util= new FLUtil();
 
         if (!this.iface.borrarRecibosFactura(idFactura)) {
                 return false;
@@ -653,7 +679,7 @@ function oficial_modificarFactura(curComanda:FLSqlCursor, idFactura:String):Numb
 /** \D Calcula los datos de totale de la factura
 @return        true el cálculo se realiza correcamente, false en caso contrario
 \end */
-function oficial_totalesFactura():Boolean
+function oficial_totalesFactura()
 {
         with (this.iface.curFactura) {
                 setValueBuffer("neto", formfacturascli.iface.pub_commonCalculateField("neto", this));
@@ -671,18 +697,18 @@ function oficial_totalesFactura():Boolean
 @param        curComanda: Cursor posicionado en el registro de ventas
 @return        true si la copia de datos es correcta, false en caso contrario
 \end */
-function oficial_datosFactura(curComanda:FLSqlCursor):Boolean
+function oficial_datosFactura(curComanda:FLSqlCursor)
 {
-        var util:FLUtil = new FLUtil;
+        var util= new FLUtil;
 
-        var codAlmacen:String = util.sqlSelect("tpv_puntosventa", "codalmacen", "codtpv_puntoventa = '" + curComanda.valueBuffer("codtpv_puntoventa") + "'");
+        var codAlmacen= util.sqlSelect("tpv_puntosventa", "codalmacen", "codtpv_puntoventa = '" + curComanda.valueBuffer("codtpv_puntoventa") + "'");
         if (!codAlmacen || codAlmacen == "")
                 codAlmacen = flfactppal.iface.pub_valorDefectoEmpresa("codalmacen");
 
-        var codCliente:String = curComanda.valueBuffer("codcliente");
-        var nomCliente:String = curComanda.valueBuffer("nombrecliente");
-        var cifCliente:String = curComanda.valueBuffer("cifnif");
-        var direccion:String = curComanda.valueBuffer("direccion");
+        var codCliente= curComanda.valueBuffer("codcliente");
+        var nomCliente= curComanda.valueBuffer("nombrecliente");
+        var cifCliente= curComanda.valueBuffer("cifnif");
+        var direccion= curComanda.valueBuffer("direccion");
 
         if (!nomCliente || nomCliente == "") {
                 nomCliente = "-";
@@ -694,7 +720,7 @@ function oficial_datosFactura(curComanda:FLSqlCursor):Boolean
                 direccion = "-";
         }
 
-        var serieCliente:String = this.iface.obtenerSerieFactura(curComanda);
+        var serieCliente= this.iface.obtenerSerieFactura(curComanda);
 
         with (this.iface.curFactura) {
                 if (codCliente && codCliente != "") {
@@ -724,12 +750,12 @@ function oficial_datosFactura(curComanda:FLSqlCursor):Boolean
         return true;
 }
 
-function oficial_obtenerSerieFactura(curComanda:String):String
+function oficial_obtenerSerieFactura(curComanda:String)
 {
-        var util:FLUtil = new FLUtil;
-        var codSerie:String = this.iface.valorDefectoTPV("codserie");
+        var util= new FLUtil;
+        var codSerie= this.iface.valorDefectoTPV("codserie");
         if (!codSerie) {
-                var codCliente:String = curComanda.valueBuffer("codcliente");
+                var codCliente= curComanda.valueBuffer("codcliente");
                 var serieCliente = "";
                 if (codCliente && codCliente != "") {
                         serieCliente = util.sqlSelect("clientes", "codserie", "codcliente = '" + codCliente + "'");
@@ -748,7 +774,7 @@ Crea una nueva forma de pago y establece los valores del formulario Datos Genenr
 */
 function oficial_valoresIniciales()
 {
-        var cursor:FLSqlCursor = new FLSqlCursor("formaspago");
+        var cursor= new FLSqlCursor("formaspago");
         with(cursor) {
                 setModeAccess(cursor.Insert);
                 refreshBuffer();
@@ -786,9 +812,9 @@ function oficial_valoresIniciales()
 @param        idFactura: Identificador de la factura a borrar
 @return        true si la factura se borra correctamente, false en caso contrario
 \end */
-function oficial_borrarFactura(idFactura:String):Boolean
+function oficial_borrarFactura(idFactura:String)
 {
-        var util:FLUtil = new FLUtil;
+        var util= new FLUtil;
 
         if (!this.iface.borrarRecibosFactura(idFactura)) {
                 return false;
@@ -801,11 +827,11 @@ function oficial_borrarFactura(idFactura:String):Boolean
         return true;
 }
 
-function oficial_borrarRecibosFactura(idFactura:String):Boolean
+function oficial_borrarRecibosFactura(idFactura:String)
 {
-        var util:FLUtil = new FLUtil;
+        var util= new FLUtil;
         if (sys.isLoadedModule("flfactteso")) {
-                var qryRecibos:FLSqlQuery = new FLSqlQuery();
+                var qryRecibos= new FLSqlQuery();
                 qryRecibos.setTablesList("reciboscli,pagosdevolcli");
                 qryRecibos.setSelect("idpagodevol");
                 qryRecibos.setFrom("reciboscli r INNER JOIN pagosdevolcli p ON r.idrecibo = p.idrecibo");
@@ -814,7 +840,7 @@ function oficial_borrarRecibosFactura(idFactura:String):Boolean
                 if (!qryRecibos.exec()) {
                         return false;
                 }
-                var curPagos:FLSqlCursor = new FLSqlCursor("pagosdevolcli");
+                var curPagos= new FLSqlCursor("pagosdevolcli");
                 while (qryRecibos.next()) {
                         curPagos.select("idpagodevol = " + qryRecibos.value("idpagodevol"));
                         if (!curPagos.first()) {
@@ -829,7 +855,7 @@ function oficial_borrarRecibosFactura(idFactura:String):Boolean
                         }
                 }
 
-                var curRecibos:FLSqlCursor = new FLSqlCursor("reciboscli");
+                var curRecibos= new FLSqlCursor("reciboscli");
                 curRecibos.select("idfactura = " + idFactura);
                 while (curRecibos.next()) {
                         curRecibos.setModeAccess(curRecibos.Del);
@@ -846,14 +872,14 @@ function oficial_borrarRecibosFactura(idFactura:String):Boolean
 @param        curComanda: cursor posiciondado en la comanda
 @return        true si la generación se realiza correctamente, false en caso contrario
 \end */
-function oficial_generarRecibos(curComanda:FLSqlCursor):Boolean
+function oficial_generarRecibos(curComanda:FLSqlCursor)
 {
         if (!sys.isLoadedModule("flfactteso"))
                 return true;
 
-        var util:FLUtil = new FLUtil;
+        var util= new FLUtil;
 
-        var idFactura:String = curComanda.valueBuffer("idfactura");
+        var idFactura= curComanda.valueBuffer("idfactura");
         var qryFactura = new FLSqlQuery();
         qryFactura.setTablesList("facturascli");
         qryFactura.setSelect("idfactura, coddivisa, codigo, codcliente, nombrecliente, cifnif, coddir, direccion, codpostal, ciudad, provincia, codpais, tasaconv");
@@ -866,13 +892,13 @@ function oficial_generarRecibos(curComanda:FLSqlCursor):Boolean
         if (!qryFactura.first())
                 return false;
 
-        var curPagos:FLSqlCursor = new FLSqlCursor("tpv_pagoscomanda");
-        var curPago:FLSqlCursor = new FLSqlCursor("tpv_pagoscomanda");
+        var curPagos= new FLSqlCursor("tpv_pagoscomanda");
+        var curPago= new FLSqlCursor("tpv_pagoscomanda");
         curPago.setActivatedCommitActions(false);
 
         curPagos.select("idtpv_comanda = " + curComanda.valueBuffer("idtpv_comanda") + " AND estado = '" + util.translate("scripts", "Pagado") + "'");
 
-        var datosRecibo:Array = [];
+        var datosRecibo= [];
         datosRecibo.numRecibo = 1;
         datosRecibo.moneda = util.sqlSelect("facturascli f INNER JOIN divisas d ON f.coddivisa = d.coddivisa", "d.descripcion", "f.idfactura = " + idFactura, "facturascli,divisas");
         datosRecibo.estado = "Pagado";
@@ -944,11 +970,11 @@ function oficial_generarRecibos(curComanda:FLSqlCursor):Boolean
         estado
 @return        identificador del recibo, o false si hay error
 \end */
-function oficial_generarRecibo(qryFactura:FLSqlQuery, datosRecibo:Array):Number
+function oficial_generarRecibo(qryFactura:FLSqlQuery, datosRecibo:Array)
 {
-        var util:FLUtil = new FLUtil;
+        var util= new FLUtil;
 
-        var curRecibo:FLSqlCursor = new FLSqlCursor("reciboscli");
+        var curRecibo= new FLSqlCursor("reciboscli");
         with (curRecibo) {
                 setModeAccess(Insert);
                 refreshBuffer()
@@ -993,17 +1019,17 @@ Crea un registro de pago en tesorería asociado al recibo especificado
 @param        datpsRecibo: Array con los datos del recibo
 @return true si el pago se crea correctamente, false en caso contrario
 \end */
-function oficial_pagarRecibo(idRecibo:String, datosRecibo:Array):Boolean
+function oficial_pagarRecibo(idRecibo:String, datosRecibo:Array)
 {
-        var util:FLUtil = new FLUtil;
+        var util= new FLUtil;
 
-        var hayContabilidad:Boolean = (sys.isLoadedModule("flcontppal") && flfactppal.iface.pub_valorDefectoEmpresa("contintegrada"));
-        var ejercicioActual:String = flfactppal.iface.pub_ejercicioActual();
+        var hayContabilidad= (sys.isLoadedModule("flcontppal") && flfactppal.iface.pub_valorDefectoEmpresa("contintegrada"));
+        var ejercicioActual= flfactppal.iface.pub_ejercicioActual();
 
-        var idSubcuenta:String = "";
-        var codSubcuenta:String = "";
+        var idSubcuenta= "";
+        var codSubcuenta= "";
 
-        var qryCuenta:FLSqlQuery = new FLSqlQuery;
+        var qryCuenta= new FLSqlQuery;
         qryCuenta.setTablesList("formaspago,cuentasbanco");
         qryCuenta.setSelect("cuenta,ctaentidad,ctaagencia,codsubcuenta");
         qryCuenta.setFrom("formaspago f INNER JOIN cuentasbanco c ON f.codcuenta = c.codcuenta")
@@ -1012,9 +1038,9 @@ function oficial_pagarRecibo(idRecibo:String, datosRecibo:Array):Boolean
         if (!qryCuenta.exec())
                 return false;
 
-        var cuenta:String = "";
-        var entidad:String = "";
-        var agencia:String = "";
+        var cuenta= "";
+        var entidad= "";
+        var agencia= "";
         if (qryCuenta.first()) {
                 cuenta = qryCuenta.value("cuenta");
                 entidad = qryCuenta.value("ctaentidad");
@@ -1027,7 +1053,7 @@ function oficial_pagarRecibo(idRecibo:String, datosRecibo:Array):Boolean
                         idSubcuenta = util.sqlSelect("co_subcuentas", "idsubcuenta", "codsubcuenta = '" + codSubcuenta + "' AND codejercicio = '" + ejercicioActual + "'");
                 }
                 if (!idSubcuenta || idSubcuenta == "") {
-                        var datosSubcuenta:Array = flfacturac.iface.pub_datosCtaEspecial("CAJA", ejercicioActual);
+                        var datosSubcuenta= flfacturac.iface.pub_datosCtaEspecial("CAJA", ejercicioActual);
                         if (datosSubcuenta.error != 0) {
                                 MessageBox.warning(util.translate("scripts", "No tiene ninguna cuenta contable marcada como cuenta especial de caja\nDebe asociar la cuenta a la cuenta especial en el módulo Principal del área Financiera"), MessageBox.Ok, MessageBox.NoButton);
                                 return false;
@@ -1037,7 +1063,7 @@ function oficial_pagarRecibo(idRecibo:String, datosRecibo:Array):Boolean
                 }
         }
 
-        var curPagoDevol:FLSqlCursor = new FLSqlCursor("pagosdevolcli");
+        var curPagoDevol= new FLSqlCursor("pagosdevolcli");
         with (curPagoDevol) {
                 setModeAccess(Insert);
                 refreshBuffer();
@@ -1093,17 +1119,15 @@ function oficial_imprimirDatos(datos:String, maxLon:Number, alineacion:Number)
         this.iface.textoPrinter += datos;
 }
 
-function oficial_espaciosIzquierda(texto:String, totalLongitud:Number):String
+function oficial_espaciosIzquierda(texto:String, totalLongitud:Number)
 {
-        var ret:String = ""
-        var numEspacios:Number = totalLongitud - texto.toString().length;
+        var ret= ""
+        var numEspacios= totalLongitud - texto.toString().length;
         for ( ; numEspacios > 0 ; --numEspacios)
                 ret += " ";
         ret += texto.toString();
         return ret;
 }
-
-
 function oficial_impNuevaLinea(numLineas:Number)
 {
         if (!numLineas)
@@ -1120,7 +1144,7 @@ function oficial_impNuevaLinea(numLineas:Number)
         this.iface.printerXPos = 1;
         this.iface.printerYPos += numLineas;
 
-        for(var i:Number = 0; i < numLineas; i++)
+        for(var i= 0; i < numLineas; i++)
                 this.iface.textoPrinter += "\n";
 }
 
@@ -1132,7 +1156,7 @@ function oficial_impNuevaLinea(numLineas:Number)
 \end */
 function oficial_impAlinearH(alineacion:Number)
 {
-        var tipo:String = "00";
+        var tipo= "00";
         switch (alineacion) {
                 case 0: {
                         tipo = "00";
@@ -1156,9 +1180,9 @@ function oficial_impAlinearH(alineacion:Number)
 function oficial_impResaltar(resaltar:Boolean)
 {
         if (resaltar)
-                this.iface.printerESC += "1B,45,01,";
+                this.iface.printerESC += "1B,47,";
         else
-                this.iface.printerESC += "1B,45,00,";
+                this.iface.printerESC += "1B,48,";
 }
 
 /** \D Activa o desactiva el subrayado de letra
@@ -1197,7 +1221,14 @@ function oficial_establecerImpresora(impresora:String)
         this.iface.printer.setPrinterName( impresora );
         this.iface.printerXPos = 1;
         this.iface.printerYPos = 1;
-        this.iface.printerESC = "ESC:1B,74,19,";
+        this.iface.printerESC = "ESC:1B,40,1B,74,00,1B,21,04,";
++        /** PBO Original this.iface.printerESC = "ESC:1B,74,19,";
++	 * Para set de caracteres IBM: 1B,74,01 ; 1B,37 ->SET#1; 1B,36 -> SET#2
++	 * Para set internacional 1B,52,11 -> Spain;
++	 * Para condensed printing 1B,0F; Cancela con 12;
++	 * Master print mode: 1B,21,04 -> Condensed printing
++	 * Reset printer: 1B,40
++	 **/
         this.iface.impAlinearH(0);
         this.iface.impResaltar(false);
 }
@@ -1206,13 +1237,13 @@ function oficial_establecerImpresora(impresora:String)
 @param        curArqueo: Cursor con los datos del arqueo
 @return        VERDADERO si no hay error. FALSO en otro caso
 \end */
-function oficial_generarAsientoArqueo(curArqueo:FLSqlCursor):Boolean
+function oficial_generarAsientoArqueo(curArqueo:FLSqlCursor)
 {
         if (curArqueo.modeAccess() != curArqueo.Edit) {
                 return true;
         }
 
-        var util:FLUtil = new FLUtil;
+        var util= new FLUtil;
         if (curArqueo.valueBuffer("nogenerarasiento")) {
                 curArqueo.setNull("idasiento");
                 return true;
@@ -1222,7 +1253,7 @@ function oficial_generarAsientoArqueo(curArqueo:FLSqlCursor):Boolean
                 return false;
         }
 
-        var datosAsiento:Array = [];
+        var datosAsiento= [];
         var valoresDefecto:Array;
         valoresDefecto["codejercicio"] = flfactppal.iface.pub_ejercicioActual();
         valoresDefecto["coddivisa"] = flfactppal.iface.pub_valorDefectoEmpresa("coddivisa");
@@ -1250,7 +1281,7 @@ function oficial_generarAsientoArqueo(curArqueo:FLSqlCursor):Boolean
         return true;
 }
 
-function oficial_generarPartidasArqueo(curArqueo:FLSqlCursor, datosAsiento:Array, valoresDefecto:Array):Boolean
+function oficial_generarPartidasArqueo(curArqueo:FLSqlCursor, datosAsiento:Array, valoresDefecto:Array)
 {
         if (!this.iface.generarPartidasMovi(curArqueo, datosAsiento.idasiento, valoresDefecto)) {
                 return false;
@@ -1270,12 +1301,12 @@ function oficial_generarPartidasArqueo(curArqueo:FLSqlCursor, datosAsiento:Array
 @param        curFactura: Cursor de la factura de cliente o proveedor
 @return TRUE si la factura no tiene IVA o teniéndolo su fecha no está incluida en ningún período ya cerrado. FALSE en caso contrario
 \end */
-function oficial_comprobarRegularizacion(curArqueo:FLSqlCursor):Boolean
+function oficial_comprobarRegularizacion(curArqueo:FLSqlCursor)
 {
-        var util:FLUtil = new FLUtil;
+        var util= new FLUtil;
 
-        var fecha:String = curArqueo.valueBuffer("diahasta");
-        var codEjercicio:String = flfactppal.iface.pub_ejercicioActual();
+        var fecha= curArqueo.valueBuffer("diahasta");
+        var codEjercicio= flfactppal.iface.pub_ejercicioActual();
         if (util.sqlSelect("co_regiva", "idregiva", "fechainicio <= '" + fecha + "' AND fechafin >= '" + fecha + "' AND codejercicio = '" + codEjercicio + "'")) {
                 MessageBox.warning(util.translate("scripts", "No puede incluirse el asiento de la factura en un período de I.V.A. ya regularizado"), MessageBox.Ok, MessageBox.NoButton);
                 return false;
@@ -1292,13 +1323,13 @@ asiento.numero: numero del asiento
 asiento.fecha: fecha del asiento
 asiento.error: indicador booleano de que ha habido un error en la función
 \end */
-function oficial_regenerarAsiento(curArqueo:FLSqlCursor, valoresDefecto:Array):Array
+function oficial_regenerarAsiento(curArqueo:FLSqlCursor, valoresDefecto:Array)
 {
-        var util:FLUtil = new FLUtil;
-        var asiento:Array = [];
-        var idAsiento:Number = curArqueo.valueBuffer("idasiento");
+        var util= new FLUtil;
+        var asiento= [];
+        var idAsiento= curArqueo.valueBuffer("idasiento");
         if (curArqueo.isNull("idasiento") || curArqueo.valueBuffer("idasiento") == 0) {
-                var curAsiento:FLSqlCursor = new FLSqlCursor("co_asientos");
+                var curAsiento= new FLSqlCursor("co_asientos");
                 with (curAsiento) {
                         setModeAccess(curAsiento.Insert);
                         refreshBuffer();
@@ -1322,7 +1353,7 @@ function oficial_regenerarAsiento(curArqueo:FLSqlCursor, valoresDefecto:Array):A
                         return asiento;
                 }
 
-                var curAsiento:FLSqlCursor = new FLSqlCursor("co_asientos");
+                var curAsiento= new FLSqlCursor("co_asientos");
                 curAsiento.select("idasiento = " + idAsiento);
                 if (!curAsiento.first()) {
                         asiento.error = true;
@@ -1377,15 +1408,15 @@ function oficial_regenerarAsiento(curArqueo:FLSqlCursor, valoresDefecto:Array):A
 @param        valoresDefecto: Array con los valores por defecto de ejercicio y divisa
 @return        True si el asiento se borra correctamente o no existe, false en caso contrario
 \end */
-function oficial_borrarAsientoArqueo(curArqueo:FLSqlCursor, idAsiento:String):Boolean
+function oficial_borrarAsientoArqueo(curArqueo:FLSqlCursor, idAsiento:String)
 {
-        var util:FLUtil = new FLUtil;
+        var util= new FLUtil;
 
         if (!flfacturac.iface.pub_asientoBorrable(idAsiento)) {
                 return false;
         }
 
-        var curAsiento:FLSqlCursor = new FLSqlCursor("co_asientos");
+        var curAsiento= new FLSqlCursor("co_asientos");
         curAsiento.select("idasiento = " + idAsiento);
         if (!curAsiento.first()) {
                 return false;
@@ -1417,11 +1448,11 @@ function oficial_borrarAsientoArqueo(curArqueo:FLSqlCursor, idAsiento:String):Bo
 @return        VERDADERO si no hay error, FALSO en otro caso
 \end */
 /*
-function oficial_generarPartidasCliente(curArqueo:FLSqlCursor, idAsiento:Number, valoresDefecto:Array):Boolean
+function oficial_generarPartidasCliente(curArqueo:FLSqlCursor, idAsiento:Number, valoresDefecto:Array)
 {
-        var util:FLUtil = new FLUtil();
+        var util= new FLUtil();
 
-        var qrySubcuentas:FLSqlQuery = new FLSqlQuery;
+        var qrySubcuentas= new FLSqlQuery;
         with (qrySubcuentas) {
                 setTablesList("");
                 setSelect("c.codcliente, SUM(p.importe)");
@@ -1432,10 +1463,10 @@ function oficial_generarPartidasCliente(curArqueo:FLSqlCursor, idAsiento:Number,
         if (!qrySubcuentas.exec())
                 return false;
 
-        var ctaCliente:Array = [];
+        var ctaCliente= [];
         var codCliente:String;
-        var debe:Number = 0;
-        var debeME:Number = 0;
+        var debe= 0;
+        var debeME= 0;
 
         while (qrySubcuentas.next()) {
                 codCliente = qrySubcuentas.value("c.codcliente");
@@ -1456,7 +1487,7 @@ function oficial_generarPartidasCliente(curArqueo:FLSqlCursor, idAsiento:Number,
                 debeME = 0;
                 debe = util.roundFieldValue(debe, "co_partidas", "debe");
 
-                var curPartida:FLSqlCursor = new FLSqlCursor("co_partidas");
+                var curPartida= new FLSqlCursor("co_partidas");
                 with (curPartida) {
                         setModeAccess(curPartida.Insert);
                         refreshBuffer();
@@ -1506,11 +1537,11 @@ function oficial_generarPartidasCliente(curArqueo:FLSqlCursor, idAsiento:Number,
 @return        VERDADERO si no hay error, FALSO en otro caso
 \end */
 /*
-function oficial_generarPartidasVentasIva(curArqueo:FLSqlCursor, idAsiento:Number, valoresDefecto:Array):Boolean
+function oficial_generarPartidasVentasIva(curArqueo:FLSqlCursor, idAsiento:Number, valoresDefecto:Array)
 {
-        var util:FLUtil = new FLUtil();
+        var util= new FLUtil();
 
-        var qrySubcuentas:FLSqlQuery = new FLSqlQuery;
+        var qrySubcuentas= new FLSqlQuery;
         with (qrySubcuentas) {
                 setTablesList("");
                 setSelect("c.codcliente, c.idtpv_comanda, c.codigo, SUM(p.importe), c.total, c.totaliva, c.neto");
@@ -1521,28 +1552,28 @@ function oficial_generarPartidasVentasIva(curArqueo:FLSqlCursor, idAsiento:Numbe
         if (!qrySubcuentas.exec())
                 return false;
 
-        var ctaVentas:Array = this.iface.subcuentaDefecto("VENTAS", valoresDefecto.codejercicio);
+        var ctaVentas= this.iface.subcuentaDefecto("VENTAS", valoresDefecto.codejercicio);
         if (ctaVentas.error != 0)
                 return false;
 
-        var ivas:Array = [];
+        var ivas= [];
 
         var ctaCliente:Array;
         var codComanda:String;
         var codCliente:String;
         var cifCliente:String;
-        var codClientePrevio:String = "";
-        var acumTotal:Number = 0;
-        var acumIVA:Number = 0;
-        //var acumIVACliente:Number = 0;
-        //var acumNetoCliente:Number = 0;
+        var codClientePrevio= "";
+        var acumTotal= 0;
+        var acumIVA= 0;
+        //var acumIVACliente= 0;
+        //var acumNetoCliente= 0;
         var totalComanda:Number;
         var totalPagado:Number;
-        var haber:Number = 0;
-        var haberME:Number = 0;
+        var haber= 0;
+        var haberME= 0;
 
-        var curPartida:FLSqlCursor = new FLSqlCursor("co_partidas");
-        var qryLineasIva:FLSqlQuery = new FLSqlQuery();
+        var curPartida= new FLSqlCursor("co_partidas");
+        var qryLineasIva= new FLSqlQuery();
         qryLineasIva.setTablesList("tpv_lineascomanda");
         qryLineasIva.setSelect("SUM(pvptotal), codimpuesto, iva");
         qryLineasIva.setFrom("tpv_lineascomanda");
@@ -1615,7 +1646,7 @@ debug (codCliente);
                                 return false;
                         }
 
-                        for (var i:Number = 0; i < ivas.length; i++) {
+                        for (var i= 0; i < ivas.length; i++) {
                                 // IVA
                                 haber = ivas[i]["acumuladoiva"];
                                 if (haber == 0)
@@ -1663,7 +1694,7 @@ debug(util.translate("scripts", "I.V.A. %1 Cliente %2").arg(ivas[i]["iva"]).arg(
                 return false;
         }
 
-        for (var i:Number = 0; i < ivas.length; i++) {
+        for (var i= 0; i < ivas.length; i++) {
                 // IVA
                 haber = ivas[i]["acumuladoiva"];
                 if (haber == 0)
@@ -1736,11 +1767,11 @@ debug(util.translate("scripts", "I.V.A. %1 Cliente %2").arg(ivas[i]["iva"]).arg(
 @return        VERDADERO si no hay error, FALSO en otro caso
 \end */
 /*
-function oficial_generarPartidasPago(curArqueo:FLSqlCursor, idAsiento:Number, valoresDefecto:Array):Boolean
+function oficial_generarPartidasPago(curArqueo:FLSqlCursor, idAsiento:Number, valoresDefecto:Array)
 {
-        var util:FLUtil = new FLUtil();
+        var util= new FLUtil();
 
-        var qrySubcuentas:FLSqlQuery = new FLSqlQuery;
+        var qrySubcuentas= new FLSqlQuery;
         with (qrySubcuentas) {
                 setTablesList("");
                 setSelect("p.codpago, SUM(p.importe)");
@@ -1752,11 +1783,11 @@ function oficial_generarPartidasPago(curArqueo:FLSqlCursor, idAsiento:Number, va
                 return false;
 
         var codPago:String;
-        var debe:Number = 0;
-        var debeME:Number = 0;
-        var codPagoEfectivo:String = util.sqlSelect("tpv_datosgenerales", "pagoefectivo", "1 = 1");
-        var codPagoTarjeta:String = util.sqlSelect("tpv_datosgenerales", "pagotarjeta", "1 = 1");
-        var codPagoVale:String = util.sqlSelect("tpv_datosgenerales", "pagovale", "1 = 1");
+        var debe= 0;
+        var debeME= 0;
+        var codPagoEfectivo= util.sqlSelect("tpv_datosgenerales", "pagoefectivo", "1 = 1");
+        var codPagoTarjeta= util.sqlSelect("tpv_datosgenerales", "pagotarjeta", "1 = 1");
+        var codPagoVale= util.sqlSelect("tpv_datosgenerales", "pagovale", "1 = 1");
 
         var ctaPago:Array;
         while (qrySubcuentas.next()) {
@@ -1781,7 +1812,7 @@ function oficial_generarPartidasPago(curArqueo:FLSqlCursor, idAsiento:Number, va
                                 break;
                         }
                         default: {
-                                var codComanda:String = util.sqlSelect("tpv_pagoscomanda p INNER JOIN tpv_comandas c ON p.idtpv_comanda = c.idtpv_comanda", "c.codigo", "p.codpago = '" + codPago + "'");
+                                var codComanda= util.sqlSelect("tpv_pagoscomanda p INNER JOIN tpv_comandas c ON p.idtpv_comanda = c.idtpv_comanda", "c.codigo", "p.codpago = '" + codPago + "'");
                                 MessageBox.warning(util.translate("scripts", "Al menos la venta %1 contiene una forma de pago que no está calificada como Efectivo, Tarjeta o Vales en el formulario de datos generales del módulo de TPV.\nPara generar el asiento asociado al arqueo actual debe corregir la forma de pago de esta venta.").arg(codComanda), MessageBox.Ok, MessageBox.NoButton);
                                 break;
                         }
@@ -1790,7 +1821,7 @@ function oficial_generarPartidasPago(curArqueo:FLSqlCursor, idAsiento:Number, va
                 debeME = 0;
                 debe = util.roundFieldValue(debe, "co_partidas", "debe");
 
-                var curPartida:FLSqlCursor = new FLSqlCursor("co_partidas");
+                var curPartida= new FLSqlCursor("co_partidas");
                 with (curPartida) {
                         setModeAccess(curPartida.Insert);
                         refreshBuffer();
@@ -1820,11 +1851,11 @@ function oficial_generarPartidasPago(curArqueo:FLSqlCursor, idAsiento:Number, va
 @param        valoresDefecto: Array con los valores por defecto de ejercicio y divisa
 @return        VERDADERO si no hay error, FALSO en otro caso
 \end */
-function oficial_generarPartidasMovi(curArqueo:FLSqlCursor, idAsiento:Number, valoresDefecto:Array):Boolean
+function oficial_generarPartidasMovi(curArqueo:FLSqlCursor, idAsiento:Number, valoresDefecto:Array)
 {
-        var util:FLUtil = new FLUtil();
+        var util= new FLUtil();
 
-        var qryMovimientos:FLSqlQuery = new FLSqlQuery;
+        var qryMovimientos= new FLSqlQuery;
         with (qryMovimientos) {
                 setTablesList("tpv_movimientos");
                 setSelect("SUM(cantidad), codcausa");
@@ -1835,11 +1866,11 @@ function oficial_generarPartidasMovi(curArqueo:FLSqlCursor, idAsiento:Number, va
         if (!qryMovimientos.exec())
                 return false;
 
-        var debe:Number = 0;
-        var debeCaja:Number = 0;
-        var haber:Number = 0;
-        var haberCaja:Number = 0;
-        var totalMovi:Number = parseFloat(curArqueo.valueBuffer("totalmov"));
+        var debe= 0;
+        var debeCaja= 0;
+        var haber= 0;
+        var haberCaja= 0;
+        var totalMovi= parseFloat(curArqueo.valueBuffer("totalmov"));
         if (totalMovi == 0)
                 return true;
 
@@ -1854,16 +1885,16 @@ function oficial_generarPartidasMovi(curArqueo:FLSqlCursor, idAsiento:Number, va
         debeCaja = util.roundFieldValue(debeCaja, "co_partidas", "debe");
         haberCaja = util.roundFieldValue(haberCaja, "co_partidas", "haber");
 
-        var codPagoEfectivo:String = util.sqlSelect("tpv_datosgenerales", "pagoefectivo", "1 = 1");
+        var codPagoEfectivo= util.sqlSelect("tpv_datosgenerales", "pagoefectivo", "1 = 1");
 
-        var ctaCaja:Array = this.iface.subcuentaDefecto("CAJA", valoresDefecto.codejercicio);
+        var ctaCaja= this.iface.subcuentaDefecto("CAJA", valoresDefecto.codejercicio);
         if (ctaCaja.error != 0)
                 return false;
 
         var ctaMovi:Array;
         var importeMovi:Number;
         var codCausa:String;
-        var curPartida:FLSqlCursor = new FLSqlCursor("co_partidas");
+        var curPartida= new FLSqlCursor("co_partidas");
         while (qryMovimientos.next()) {
                 importeMovi = parseFloat(qryMovimientos.value("SUM(cantidad)"));
                 if (!importeMovi || isNaN(importeMovi) || importeMovi == 0)
@@ -1937,15 +1968,15 @@ function oficial_generarPartidasMovi(curArqueo:FLSqlCursor, idAsiento:Number, va
 @param        valoresDefecto: Array con los valores por defecto de ejercicio y divisa
 @return        VERDADERO si no hay error, FALSO en otro caso
 \end */
-function oficial_generarPartidasMoviCierre(curArqueo:FLSqlCursor, idAsiento:Number, valoresDefecto:Array):Boolean
+function oficial_generarPartidasMoviCierre(curArqueo:FLSqlCursor, idAsiento:Number, valoresDefecto:Array)
 {
-        var util:FLUtil = new FLUtil();
+        var util= new FLUtil();
 
-        var debe:Number = 0;
-        var debeCaja:Number = 0;
-        var haber:Number = 0;
-        var haberCaja:Number = 0;
-        var totalMovi:Number = parseFloat(curArqueo.valueBuffer("sacadodecaja"));
+        var debe= 0;
+        var debeCaja= 0;
+        var haber= 0;
+        var haberCaja= 0;
+        var totalMovi= parseFloat(curArqueo.valueBuffer("sacadodecaja"));
         if (totalMovi == 0) {
                 return true;
         }
@@ -1967,25 +1998,25 @@ function oficial_generarPartidasMoviCierre(curArqueo:FLSqlCursor, idAsiento:Numb
         debeCaja = util.roundFieldValue(debeCaja, "co_partidas", "debe");
         haberCaja = util.roundFieldValue(haberCaja, "co_partidas", "haber");
 
-        var codPagoEfectivo:String = util.sqlSelect("tpv_datosgenerales", "pagoefectivo", "1 = 1");
+        var codPagoEfectivo= util.sqlSelect("tpv_datosgenerales", "pagoefectivo", "1 = 1");
 
-        var ctaCaja:Array = this.iface.subcuentaDefecto("CAJA", valoresDefecto.codejercicio);
+        var ctaCaja= this.iface.subcuentaDefecto("CAJA", valoresDefecto.codejercicio);
         if (ctaCaja.error != 0) {
                 MessageBox.warning(util.translate("scripts", "Error al generar el asiento: No tiene una subcuenta asociada a la cuenta especial CAJA"), MessageBox.Ok, MessageBox.NoButton);
                 return false;
         }
-        var codCausa:String = util.sqlSelect("tpv_datosgenerales", "codcausacierre", "1 = 1");
+        var codCausa= util.sqlSelect("tpv_datosgenerales", "codcausacierre", "1 = 1");
         if (!codCausa || codCausa == "") {
                 MessageBox.warning(util.translate("scripts", "No es posible generar el asiento contable asociado al arqueo por la siguiente razón:\nNo tiene establecida la causa asociada al movimiento de cierre.\nAsocie la causa en el formulario de datos genrales y verifique que ésta tiene asociada una cuenta contable"), MessageBox.Ok, MessageBox.NoButton);
                         return false;
         }
-        var ctaMovi:Array = this.iface.subcuentaCausa(codCausa, valoresDefecto.codejercicio);
+        var ctaMovi= this.iface.subcuentaCausa(codCausa, valoresDefecto.codejercicio);
         if (ctaMovi.error != 0) {
                 MessageBox.warning(util.translate("scripts", "Error al generar el asiento: No tiene asociada una subcuenta vália a la Causa asociada al movimiento de cierre.\nEdite dicha Causa y asóciele una subcuenta válida."), MessageBox.Ok, MessageBox.NoButton);
                 return false;
         }
 
-        var curPartida:FLSqlCursor = new FLSqlCursor("co_partidas");
+        var curPartida= new FLSqlCursor("co_partidas");
 
         with (curPartida) {
                 setModeAccess(curPartida.Insert);
@@ -2034,22 +2065,22 @@ function oficial_generarPartidasMoviCierre(curArqueo:FLSqlCursor, idAsiento:Numb
 @param        valoresDefecto: Array con los valores por defecto de ejercicio y divisa
 @return        VERDADERO si no hay error, FALSO en otro caso
 \end */
-function oficial_generarPartidasDif(curArqueo:FLSqlCursor, idAsiento:Number, valoresDefecto:Array):Boolean
+function oficial_generarPartidasDif(curArqueo:FLSqlCursor, idAsiento:Number, valoresDefecto:Array)
 {
-        var util:FLUtil = new FLUtil();
+        var util= new FLUtil();
 
-        var debe:Number = 0;
-        var debeCaja:Number = 0;
-        var haber:Number = 0;
-        var haberCaja:Number = 0;
-        var difEfectivo:Number = formRecordtpv_arqueos.iface.pub_commonCalculateField("diferenciaEfectivo", curArqueo);
+        var debe= 0;
+        var debeCaja= 0;
+        var haber= 0;
+        var haberCaja= 0;
+        var difEfectivo= formRecordtpv_arqueos.iface.pub_commonCalculateField("diferenciaEfectivo", curArqueo);
         difEfectivo = parseFloat(difEfectivo);
         if (difEfectivo == 0)
                 return true;
 
-        var codPagoEfectivo:String = util.sqlSelect("tpv_datosgenerales", "pagoefectivo", "1 = 1");
+        var codPagoEfectivo= util.sqlSelect("tpv_datosgenerales", "pagoefectivo", "1 = 1");
 
-        var ctaCaja:Array = this.iface.subcuentaDefecto("CAJA", valoresDefecto.codejercicio);
+        var ctaCaja= this.iface.subcuentaDefecto("CAJA", valoresDefecto.codejercicio);
         if (ctaCaja.error != 0)
                 return false;
 
@@ -2073,7 +2104,7 @@ function oficial_generarPartidasDif(curArqueo:FLSqlCursor, idAsiento:Number, val
         debeCaja = util.roundFieldValue(debeCaja, "co_partidas", "debe");
         haberCaja = util.roundFieldValue(haberCaja, "co_partidas", "haber");
 
-        var curPartida:FLSqlCursor = new FLSqlCursor("co_partidas");
+        var curPartida= new FLSqlCursor("co_partidas");
         with (curPartida) {
                 setModeAccess(curPartida.Insert);
                 refreshBuffer();
@@ -2122,25 +2153,25 @@ Se ponen datos de concepto, tipo de documento, documento y factura
 @param        curArqueo: Cursor sobre el arqueo
 @param        masConcepto: Concepto, opcional
 */
-function oficial_conceptoPartida(curArqueo:FLSqlCursor, masConcepto:String):String
+function oficial_conceptoPartida(curArqueo:FLSqlCursor, masConcepto:String)
 {
-        var util:FLUtil = new FLUtil();
-        var concepto:String = util.translate("scripts", "Arqueo de caja ") + curArqueo.valueBuffer("idtpv_arqueo");
+        var util= new FLUtil();
+        var concepto= util.translate("scripts", "Arqueo de caja ") + curArqueo.valueBuffer("idtpv_arqueo");
         if (masConcepto)
                 concepto += " " + masConcepto;
 
         return concepto;
 }
 
-function oficial_subcuentaCausa(codCausa:String, codEjercicio:String):Array
+function oficial_subcuentaCausa(codCausa:String, codEjercicio:String)
 {
-        var util:FLUtil = new FLUtil();
-        var datos:Array = [];
+        var util= new FLUtil();
+        var datos= [];
         datos["error"] = 1;
 
-        var q:FLSqlQuery = new FLSqlQuery();
+        var q= new FLSqlQuery();
 
-        var codSubcuenta:String = util.sqlSelect("tpv_causasmovimiento", "codsubcuenta", "codcausa = '" + codCausa + "'");
+        var codSubcuenta= util.sqlSelect("tpv_causasmovimiento", "codsubcuenta", "codcausa = '" + codCausa + "'");
         if (!codSubcuenta) {
                 MessageBox.warning(util.translate("scripts", "No tiene especificada la subcuenta asociada a la causa de movimiento de caja %1.\nDebe editar la causa y asociar la correspondiente subcuenta contable").arg(codCausa), MessageBox.Ok, MessageBox.NoButton);
                 return datos;
@@ -2167,13 +2198,13 @@ function oficial_subcuentaCausa(codCausa:String, codEjercicio:String):Array
         return datos;
 }
 
-function oficial_subcuentaDefecto(nombre:String, codEjercicio:String):Array
+function oficial_subcuentaDefecto(nombre:String, codEjercicio:String)
 {
-        var util:FLUtil = new FLUtil();
-        var datos:Array = [];
+        var util= new FLUtil();
+        var datos= [];
         datos["error"] = 1;
 
-        var q:FLSqlQuery = new FLSqlQuery();
+        var q= new FLSqlQuery();
 
         var codSubcuenta:String;
         switch (nombre) {
@@ -2250,13 +2281,13 @@ function oficial_subcuentaDefecto(nombre:String, codEjercicio:String):Array
         return datos;
 }
 
-function oficial_sincronizarConFacturacion(curComanda:FLSqlCursor):Boolean
+function oficial_sincronizarConFacturacion(curComanda:FLSqlCursor)
 {
         var util:FLUtil;
 
         switch (curComanda.modeAccess()) {
                 case curComanda.Insert: {
-                        var idFactura:String = this.iface.crearFactura(curComanda);
+                        var idFactura= this.iface.crearFactura(curComanda);
                         if (!idFactura) {
                                 return false;
                         }
@@ -2264,7 +2295,7 @@ function oficial_sincronizarConFacturacion(curComanda:FLSqlCursor):Boolean
                         break;
                 }
                 case curComanda.Edit: {
-                        var idFactura:String = curComanda.valueBuffer("idfactura");
+                        var idFactura= curComanda.valueBuffer("idfactura");
                         if (idFactura && util.sqlSelect("facturascli", "idfactura", "idfactura = " + idFactura)) {
                                 if (!this.iface.modificarFactura(curComanda, idFactura)) {
                                         return false;
@@ -2282,7 +2313,7 @@ function oficial_sincronizarConFacturacion(curComanda:FLSqlCursor):Boolean
                         break;
                 }
                 case curComanda.Del: {
-                        var idFactura:String = curComanda.valueBuffer("idfactura");
+                        var idFactura= curComanda.valueBuffer("idfactura");
                         if (!util.sqlDelete("tpv_pagoscomanda", "idtpv_comanda = " + curComanda.valueBuffer("idtpv_comanda"))) {
                                 return false;
                         }
@@ -2298,14 +2329,14 @@ function oficial_sincronizarConFacturacion(curComanda:FLSqlCursor):Boolean
         return true;
 }
 
-function oficial_obtenerCodigoComanda(curComanda:FLSqlCursor):String
+function oficial_obtenerCodigoComanda(curComanda:FLSqlCursor)
 {
-        var util:FLUtil = new FLUtil();
+        var util= new FLUtil();
         var prefijo = "";
-        var ultimoTiquet:Number = util.sqlSelect("tpv_secuenciascomanda", "valor", "prefijo = '" + prefijo + "'");
+        var ultimoTiquet= util.sqlSelect("tpv_secuenciascomanda", "valor", "prefijo = '" + prefijo + "'");
 
         if (!ultimoTiquet) {
-                var idUltimo:String = util.sqlSelect("tpv_comandas", "codigo", "codigo LIKE '" + prefijo + "%' ORDER BY codigo DESC");
+                var idUltimo= util.sqlSelect("tpv_comandas", "codigo", "codigo LIKE '" + prefijo + "%' ORDER BY codigo DESC");
 
                 if (idUltimo) {
                         ultimoTiquet = parseFloat(idUltimo);
@@ -2313,14 +2344,14 @@ function oficial_obtenerCodigoComanda(curComanda:FLSqlCursor):String
                         ultimoTiquet = 0;
                 }
                 ultimoTiquet += 1;
-//                 var pass:String = util.readSettingEntry( "DBA/password");
-//                 var port:String = util.readSettingEntry( "DBA/port");
+//                 var pass= util.readSettingEntry( "DBA/password");
+//                 var port= util.readSettingEntry( "DBA/port");
 //                 if (!sys.addDatabase(sys.nameDriver(), sys.nameBD(), sys.nameUser(), pass, sys.nameHost(), port, "conAux")) {
 //                         MessageBox.warning(util.translate("scripts", "Ha habido un error al establecer una conexión auxiliar con la base de datos %1").arg(sys.nameBD()), MessageBox.Ok, MessageBox.NoButton);
 //                         return false;
 //                 }
-//                 var curSecuencia:FLSqlCursor = new FLSqlCursor("tpv_secuenciascomanda", "conAux");
-                var curSecuencia:FLSqlCursor = new FLSqlCursor("tpv_secuenciascomanda");
+//                 var curSecuencia= new FLSqlCursor("tpv_secuenciascomanda", "conAux");
+                var curSecuencia= new FLSqlCursor("tpv_secuenciascomanda");
                 curSecuencia.setModeAccess(curSecuencia.Insert);
                 curSecuencia.refreshBuffer();
                 curSecuencia.setValueBuffer("prefijo", "");
@@ -2334,22 +2365,22 @@ function oficial_obtenerCodigoComanda(curComanda:FLSqlCursor):String
                 util.sqlUpdate("tpv_secuenciascomanda", "valor", ultimoTiquet, "prefijo = '" + prefijo + "'");
         }
 
-        var codigo:String = prefijo + flfacturac.iface.pub_cerosIzquierda(ultimoTiquet, 12 - prefijo.length);
+        var codigo= prefijo + flfacturac.iface.pub_cerosIzquierda(ultimoTiquet, 12 - prefijo.length);
 
         return codigo;
 }
 
-function oficial_valorDefectoTPV(campo:String):String
+function oficial_valorDefectoTPV(campo:String)
 {
-        var util:FLUtil = new FLUtil;
-        var valor:String = util.sqlSelect("tpv_datosgenerales", campo, "1 = 1");
+        var util= new FLUtil;
+        var valor= util.sqlSelect("tpv_datosgenerales", campo, "1 = 1");
         return valor;
 }
 
-function oficial_borrarLineasFactura(idFactura:String):Boolean
+function oficial_borrarLineasFactura(idFactura:String)
 {
-        var util:FLUtil = new FLUtil;
-        var curLinea:FLSqlCursor = new FLSqlCursor("lineasfacturascli");
+        var util= new FLUtil;
+        var curLinea= new FLSqlCursor("lineasfacturascli");
         curLinea.select("idfactura = " + idFactura);
         while (curLinea.next()) {
                 curLinea.setModeAccess(curLinea.Del);
@@ -2365,9 +2396,9 @@ function oficial_borrarLineasFactura(idFactura:String):Boolean
 \end */
 function oficial_comprobarAlmacenesComandas()
 {
-        var util:FLUtil = new FLUtil;
+        var util= new FLUtil;
 
-        var curComandas:FLSqlCursor = new FLSqlCursor("tpv_comandas");
+        var curComandas= new FLSqlCursor("tpv_comandas");
         curComandas.select("codalmacen = 'NULL'");
         curComandas.setActivatedCommitActions(false);
         curComandas.setActivatedCheckIntegrity(false);
@@ -2385,6 +2416,129 @@ function oficial_comprobarAlmacenesComandas()
 }
 //// OFICIAL /////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////
+
+/** @class_definition funNumSerie */
+/////////////////////////////////////////////////////////////////
+//// FUN_NUMEROS_SERIE /////////////////////////////////////////////////
+/** \D Copia los datos de una línea de venta en una línea de factura
+@param	curLineaComanda: Cursor que contiene los datos a incluir en la línea de factura
+@return	True si la copia se realiza correctamente, false en caso contrario
+\end */
+function funNumSerie_datosLineaFactura(curLineaComanda:FLSqlCursor)
+{
+	if(!this.iface.__datosLineaFactura(curLineaComanda))
+		return false;
+
+	with (this.iface.curLineaFactura) {
+		setValueBuffer("numserie", curLineaComanda.valueBuffer("numserie"));
+	}
+	return true;
+}
+/** \D Actualiza el id de venta de venta para un número de serie.
+*/
+function funNumSerie_afterCommit_tpv_lineascomandans(curL:FLSqlCursor)
+{
+    this.iface.__afterCommit_tpv_lineascomanda();
+	if (!curL.valueBuffer("numserie")) return true;
+
+	var util= new FLUtil();
+
+	var curNS= new FLSqlCursor("numerosserie");
+	var idComanda = util.sqlSelect("tpv_lineascomanda", "idtpv_comanda", "idtpv_linea = " + curL.valueBuffer("idlineacomanda"));
+
+	MessageBox.information(idComanda);
+
+	switch(curL.modeAccess()) {
+
+		case curL.Edit:
+			// Control cuando cambia un número por otro, se libera el primero
+			if (curL.valueBuffer("numserie") != curL.valueBufferCopy("numserie")) {
+				curNS.select("referencia = '" + curL.valueBuffer("referencia") + "' AND numserie = '" + curL.valueBufferCopy("numserie") + "'");
+				if (curNS.first()) {
+					curNS.setModeAccess(curNS.Edit);
+					curNS.refreshBuffer();
+					curNS.setValueBuffer("idcomandaventa", -1)
+					curNS.setValueBuffer("vendido", "false")
+					if (!curNS.commitBuffer()) return false;
+				}
+			}
+
+		case curL.Insert:
+			curNS.select("referencia = '" + curL.valueBuffer("referencia") + "' AND numserie = '" + curL.valueBuffer("numserie") + "'");
+			if (curNS.first()) {
+				curNS.setModeAccess(curNS.Edit);
+				curNS.refreshBuffer();
+				curNS.setValueBuffer("idcomandaventa", idComanda)
+				curNS.setValueBuffer("vendido", "true")
+				if (!curNS.commitBuffer()) return false;
+			}
+		break;
+
+		case curL.Del:
+			curNS.select("referencia = '" + curL.valueBuffer("referencia") + "' AND numserie = '" + curL.valueBuffer("numserie") + "'");
+			if (curNS.first()) {
+				curNS.setModeAccess(curNS.Edit);
+				curNS.refreshBuffer();
+				curNS.setValueBuffer("idcomandaventa", -1)
+				curNS.setValueBuffer("vendido", "false")
+				if (!curNS.commitBuffer()) return false;
+			}
+			break;
+	}
+	return true;
+}
+function funNumSerie_copiarLinea(idFactura:Number,curLineaComanda:FLSqlCursor)
+{
+	var idLinea = this.iface.__copiarLinea(idFactura, curLineaComanda);
+	if(!idLinea)
+		return false;
+
+	var util= new FLUtil;
+
+	var curLNA= new FLSqlCursor("tpv_lineascomandans");
+	var curLNF= new FLSqlCursor("lineasfacturasclins");
+
+	curLNA.select("idlineacomanda = " + curLineaComanda.valueBuffer("idtpv_linea"));
+	while(curLNA.next()) {
+
+		if (!curLNA.valueBuffer("numserie")) {
+			MessageBox.warning(util.translate("scripts", "No es posible generar la factura.\n\nLa venta tiene componentes de artículos compuestos\ncuyo número de serie no se ha establecido"), MessageBox.Ok, MessageBox.NoButton);
+			return false;
+		}
+
+		curLNF.setModeAccess(curLNF.Insert);
+		curLNF.refreshBuffer();
+		curLNF.setValueBuffer("idlineafactura", idLinea);
+		curLNF.setValueBuffer("referencia", curLNA.valueBuffer("referencia"));
+		curLNF.setValueBuffer("numserie", curLNA.valueBuffer("numserie"));
+ 		curLNF.commitBuffer();
+	}
+
+	return true;
+}
+//// FUN_NUMEROS_SERIE /////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+
+/** @class_definition ivaIncluido */
+//////////////////////////////////////////////////////////////////
+//// IVA INCLUIDO ////////////////////////////////////////////////
+/** \D Copia campo a campo los datos de IVA incluido de una linea de la comanda en una línea de la factura
+@param curLineaComanda cursor de las lineas de la comanda
+@return Boolean, true si la linea se ha copiado correctamente y false si ha habido algún errror
+*/
+function ivaIncluido_datosLineaFactura(curLineaComanda:FLSqlCursor)
+{
+	if (!this.iface.__datosLineaFactura(curLineaComanda))
+		return false;
+
+	with (this.iface.curLineaFactura) {
+		setValueBuffer("ivaincluido", curLineaComanda.valueBuffer("ivaincluido"));
+		setValueBuffer("pvpunitarioiva", curLineaComanda.valueBuffer("pvpunitarioiva"));
+	}
+	return true;
+}
+//// IVA INCLUIDO ////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
 
 /** @class_definition head */
 /////////////////////////////////////////////////////////////////
