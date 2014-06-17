@@ -87,7 +87,7 @@
 		<pk>false</pk>
 		<type>double</type>
 		<partI>6</partI>
-		<partD>2</partD>
+		<partD>3</partD>
 	</field>
 
 	<field>
@@ -97,7 +97,7 @@
 		<pk>false</pk>
 		<type>double</type>
 		<partI>6</partI>
-		<partD>2</partD>
+		<partD>3</partD>
 		<default>1</default>
 	</field>
 
@@ -109,7 +109,7 @@
 		<pk>false</pk>
 		<type>double</type>
 		<partI>6</partI>
-		<partD>2</partD>
+		<partD>3</partD>
 	</field>
 
 	<field>
@@ -119,7 +119,7 @@
 		<pk>false</pk>
 		<type>double</type>
 		<partI>6</partI>
-		<partD>2</partD>
+		<partD>3</partD>
 		<editable>false></editable>
 	</field>
 
