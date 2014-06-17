@@ -58,7 +58,7 @@
         <pk>false</pk>
         <type>double</type>
         <partI>6</partI>
-        <partD>2</partD>
+        <partD>3</partD>
     </field>
     <field>
         <name>cantidad</name>
@@ -67,7 +67,7 @@
         <pk>false</pk>
         <type>double</type>
         <partI>6</partI>
-        <partD>2</partD>
+        <partD>3</partD>
         <default>1</default>
     </field>
     <field>

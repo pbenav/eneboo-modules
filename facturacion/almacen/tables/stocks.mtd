@@ -72,7 +72,7 @@
 		<pk>false</pk>
 		<type>double</type>
 		<partI>10</partI>
-		<partD>2</partD>
+		<partD>3</partD>
 		<default>0</default>
 		<editable>false</editable>
 	</field>
@@ -85,7 +85,7 @@
 		<pk>false</pk>
 		<type>double</type>
 		<partI>10</partI>
-		<partD>2</partD>
+		<partD>3</partD>
 		<default>0</default>
 		<editable>false</editable>
 	</field>
@@ -98,7 +98,7 @@
 		<pk>false</pk>
 		<type>double</type>
 		<partI>10</partI>
-		<partD>2</partD>
+		<partD>3</partD>
 		<default>0</default>
 		<editable>false</editable>
 	</field>
@@ -111,7 +111,7 @@
 		<pk>false</pk>
 		<type>double</type>
 		<partI>10</partI>
-		<partD>2</partD>
+		<partD>3</partD>
 		<default>0</default>
 		<editable>false</editable>
 	</field>
@@ -160,7 +160,7 @@
 	    <pk>false</pk>
 	    <type>double</type>
 	    <partI>10</partI>
-	    <partD>2</partD>
+	    <partD>3</partD>
 	    <default>0</default>
 	    <editable>false</editable>
 	</field>	
